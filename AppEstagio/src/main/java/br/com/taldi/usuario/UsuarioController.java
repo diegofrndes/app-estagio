@@ -15,7 +15,7 @@ public class UsuarioController {
 	@GetMapping("/")
 	public String home(HttpServletRequest request) {
 		request.setAttribute("usuarios", usuarioService.getAllUsuarios());
-		return "index";
+		return "home";
 	}	
 	
 }
