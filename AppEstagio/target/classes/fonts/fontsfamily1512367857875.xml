@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fontFamilies>
+	<fontFamily name="TaldiReportFont">
+		<normal><![CDATA[fonts/TaldiReportFont/arial.ttf]]></normal>
+		<bold><![CDATA[fonts/TaldiReportFont/arial-bold.ttf]]></bold>
+		<pdfEncoding><![CDATA[Cp1252]]></pdfEncoding>
+		<pdfEmbedded><![CDATA[true]]></pdfEmbedded>
+		<exportFonts/>
+	</fontFamily>
+</fontFamilies>
