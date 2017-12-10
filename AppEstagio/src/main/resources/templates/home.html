@@ -9,7 +9,7 @@
 
 <body>
 	<nav class="navbar navbar-light bg-faded">
-		<a class="navbar-brand" href="#"> <img src="images/logo.png"
+		<a class="navbar-brand" th:href="@{/upload}"> <img th:src="@{/images/logo.png}"
 			width="32" height="32" class="d-inline-block align-top" alt="" />
 			Taldi Engenharia
 		</a>
@@ -36,7 +36,7 @@
 							<td th:text="${usuario.id}" />
 							<td th:text="${usuario.pessoa.nome}" />
 							<td th:text="${usuario.login}" />
-							<td><a th:href="@{uconsumidora(id=${usuario.id})}"> <img
+							<td><a th:href="@{uconsumidora/{id}(id=${usuario.id})}"> <img
 									src="/images/glyphicons/png/glyphicons-21-home.png" width="22"
 									height="20"></img>
 							</a></td>

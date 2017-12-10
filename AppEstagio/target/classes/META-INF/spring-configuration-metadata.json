@@ -1,0 +1,14 @@
+{
+  "groups": [{
+    "name": "storage",
+    "type": "br.com.taldi.armazenamento.ArmazenamentoProperties",
+    "sourceType": "br.com.taldi.armazenamento.ArmazenamentoProperties"
+  }],
+  "properties": [{
+    "name": "storage.location",
+    "type": "java.lang.String",
+    "description": "Localizacao da pasta para armazenar arquivos",
+    "sourceType": "br.com.taldi.armazenamento.ArmazenamentoProperties"
+  }],
+  "hints": []
+}
