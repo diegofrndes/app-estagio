@@ -1,5 +1,6 @@
 package br.com.taldi.usina;
 
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView;
 
+import br.com.taldi.armazenamento.ArmazenamentoProperties;
 import br.com.taldi.pessoa.fisica.PessoaFisica;
 import br.com.taldi.pessoa.juridica.PessoaJuridica;
 import br.com.taldi.uconsumidora.UnidadeConsumidora;
@@ -31,7 +33,9 @@ public class RelatorioSolarController {
 	private UsuarioService usuarioService;
 	@Autowired
 	private UnidadeConsumidoraService unidadeConsumidoraService;
-    @Autowired
+	@Autowired
+	ArmazenamentoProperties armazenamentoProperties;
+	@Autowired
     private ApplicationContext appContext;
 
 	@RequestMapping(path = "/pdf/{id}", method = RequestMethod.GET)
@@ -41,6 +45,7 @@ public class RelatorioSolarController {
         view.setApplicationContext(appContext);
         Map<String, Object> params = new HashMap<>();
         usuario = usuarioService.getUsuario(id);
+        params.put("LogoPath", Paths.get(armazenamentoProperties.getLocation()).toString() + "/usuarios/" + Long.toString(usuario.getId()) + "/logo/logo.png");
         params.put("Nome", usuario.getPessoa().getNome());
         if(usuario.getPessoa() instanceof PessoaFisica)
             params.put("Documento", "CPF " + ((PessoaFisica) usuario.getPessoa()).getCpf());

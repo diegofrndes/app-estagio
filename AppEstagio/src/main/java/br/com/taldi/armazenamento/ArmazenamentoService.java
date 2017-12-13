@@ -18,4 +18,5 @@ public interface ArmazenamentoService {
     Resource loadAsResource(String filename);
 
     void deleteAll();
+    
 }

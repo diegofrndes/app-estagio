@@ -25,8 +25,9 @@
 					<tr>
 						<th class="text-center">Id</th>
 						<th class="text-center">Denominação</th>
+						<th class="text-center">Contrato</th>
 						<th class="text-center">Usuário</th>
-
+						<th class="text-center">Faturas</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -34,7 +35,9 @@
 						<tr>
 							<td th:text="${uconsumidora.id}" />
 							<td th:text="${uconsumidora.denominacao}" />
+							<td th:text="${uconsumidora.contrato}" />
 							<td th:text="${proprietario}" />
+							<td><a th:href="@{faturas/{id}(id=${uconsumidora.id})}">Ver Faturas</a></td>
 						</tr>
 					</th:block>
 				</tbody>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="solar" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="006dbb42-85c1-4d61-8ab7-6de6c3ec3494">
+	<parameter name="LogoPath" class="java.lang.String"/>
 	<parameter name="Nome" class="java.lang.String"/>
 	<parameter name="Documento" class="java.lang.String"/>
 	<parameter name="Classificacao" class="java.lang.String"/>
@@ -99,6 +100,17 @@
 					<pen lineColor="#FFFFFF"/>
 				</graphicElement>
 			</rectangle>
+			<rectangle radius="4">
+				<reportElement mode="Opaque" x="0" y="131" width="276" height="42" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="487cdee7-76ac-4c13-a677-d3ae4673bbb3">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
 			<textField>
 				<reportElement mode="Transparent" x="2" y="74" width="274" height="14" backcolor="#DEDEDE" uuid="e07cc814-e40b-4311-9ef2-e7aa45bd4746">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -133,24 +145,13 @@
 				<textFieldExpression><![CDATA[$P{Classificacao}]]></textFieldExpression>
 			</textField>
 			<image onErrorType="Icon">
-				<reportElement x="229" y="79" width="40" height="40" uuid="12101119-8579-44dd-9155-75f19a9aff0f">
+				<reportElement x="235" y="78" width="32" height="32" uuid="12101119-8579-44dd-9155-75f19a9aff0f">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
-				<imageExpression><![CDATA["classpath:jasperreports/images/your_logo_here.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{LogoPath}]]></imageExpression>
 			</image>
-			<rectangle radius="4">
-				<reportElement mode="Opaque" x="0" y="131" width="276" height="42" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="487cdee7-76ac-4c13-a677-d3ae4673bbb3">
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-				<graphicElement>
-					<pen lineColor="#FFFFFF"/>
-				</graphicElement>
-			</rectangle>
 			<staticText>
 				<reportElement x="2" y="117" width="271" height="14" forecolor="#0254A7" uuid="4c6204cd-ae8f-4dbc-a9fc-305f5e362a6a"/>
 				<textElement textAlignment="Left">
@@ -158,17 +159,17 @@
 				</textElement>
 				<text><![CDATA[ENDEREÇO]]></text>
 			</staticText>
-			<staticText>
+			<textField>
 				<reportElement mode="Transparent" x="2" y="132" width="274" height="14" backcolor="#DEDEDE" uuid="074d91e2-39f3-48ae-b5ea-894d3069485c">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Top">
 					<font fontName="TaldiReportFont" isBold="false"/>
 				</textElement>
-				<text><![CDATA[AVENIDA FRANCISCO DA MOTA, KM 43,3]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$P{LogoPath}]]></textFieldExpression>
+			</textField>
 			<staticText>
 				<reportElement mode="Transparent" x="2" y="145" width="274" height="14" backcolor="#E0E0E0" uuid="10a5f96c-e204-4ca5-84eb-4db387b511e7">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>

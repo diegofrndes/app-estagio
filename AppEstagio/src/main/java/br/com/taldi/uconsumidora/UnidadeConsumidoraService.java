@@ -14,9 +14,14 @@ public class UnidadeConsumidoraService {
 	@Autowired
 	private UnidadeConsumidoraRepository unidadeConsumidoraRepository;
 	
-	public List<UnidadeConsumidora> getByUsuarioId(long id){
+	public String getProprietarioUnidadeConsumidora(long id) {
+		UnidadeConsumidora uc = unidadeConsumidoraRepository.findOne(id);
+		return uc.getUsuario().getPessoa().getNome();
+	}
+	
+	public List<UnidadeConsumidora> getByUsuarioId(long usuarioId){
 		List<UnidadeConsumidora> ucs = new ArrayList<>();
-		unidadeConsumidoraRepository.findByUsuarioId(id).forEach(ucs::add);
+		unidadeConsumidoraRepository.findByUsuarioId(usuarioId).forEach(ucs::add);
 		return ucs;
 	}
 

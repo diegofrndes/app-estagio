@@ -33,7 +33,7 @@ public class ArquivoUploadController {
 	public String listUploadedFiles(Model model) throws IOException {
 		model.addAttribute("files", armazenamentoService.loadAll()
 				.map(path -> MvcUriComponentsBuilder
-						.fromMethodName(ArquivoUploadController.class, "serveFile", path.getFileName().toString())
+						.fromMethodName(ArquivoUploadController.class, "serveFile", null, path.getFileName().toString())
 						.build().toString())
 				.collect(Collectors.toList()));
 
@@ -42,9 +42,14 @@ public class ArquivoUploadController {
 
 	@GetMapping("/files/{filename:.+}")
 	@ResponseBody
-	public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+	public ResponseEntity<Resource> serveFile(@RequestParam(value = "path", required = false) String path,
+			@PathVariable String filename) {
+		Resource file;
+		if (path != null)
+			file = armazenamentoService.loadAsResource(path + filename);
+		else
+			file = armazenamentoService.loadAsResource(filename);
 
-		Resource file = armazenamentoService.loadAsResource(filename);
 		return ResponseEntity.ok()
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
 				.body(file);
