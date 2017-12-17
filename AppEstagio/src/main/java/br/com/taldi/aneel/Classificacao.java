@@ -71,9 +71,9 @@ public class Classificacao {
 	public String toString() {
 		String classificacao = "";
 		if(subgrupo != null)
-			classificacao = subgrupo;
+			classificacao = subgrupo + " ";
 		if(classe != null)
-			classificacao = classificacao + classe;
+			classificacao = classificacao + classe + " ";
 		if(subclasse != null)
 			classificacao = classificacao + subclasse;
 		return classificacao;

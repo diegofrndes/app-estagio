@@ -85,4 +85,12 @@ public class UnidadeConsumidora {
 		this.classificacao = classificacao;
 	}
 
+	public Ligacao getLigacao() {
+		return ligacao;
+	}
+
+	public void setLigacao(Ligacao ligacao) {
+		this.ligacao = ligacao;
+	}
+
 }

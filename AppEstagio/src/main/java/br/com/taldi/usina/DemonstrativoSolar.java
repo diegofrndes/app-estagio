@@ -18,13 +18,14 @@ import br.com.taldi.uconsumidora.Fatura;
 
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "cicloMes", "id_fatura" }) })
-public class Demonstrativo {
+public class DemonstrativoSolar {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private BigDecimal energiaRegistrada;
 	private BigDecimal energiaInjetada;
 	private BigDecimal energiaCompensada;
+	private BigDecimal credito;
 	@Temporal(TemporalType.DATE)
 	private Date cicloMes;
 	@Temporal(TemporalType.DATE)
@@ -97,6 +98,14 @@ public class Demonstrativo {
 
 	public void setFatura(Fatura fatura) {
 		this.fatura = fatura;
+	}
+
+	public BigDecimal getCredito() {
+		return credito;
+	}
+
+	public void setCredito(BigDecimal credito) {
+		this.credito = credito;
 	}
 
 }
