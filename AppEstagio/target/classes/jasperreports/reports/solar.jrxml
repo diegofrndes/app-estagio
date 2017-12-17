@@ -1,11 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="solar" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="006dbb42-85c1-4d61-8ab7-6de6c3ec3494">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="solar" pageWidth="595" pageHeight="842" whenNoDataType="NoPages" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="006dbb42-85c1-4d61-8ab7-6de6c3ec3494">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<style name="Crosstab_CH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CG" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CT" mode="Opaque" backcolor="#005FB3">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
 	<parameter name="LogoPath" class="java.lang.String"/>
 	<parameter name="Nome" class="java.lang.String"/>
 	<parameter name="Documento" class="java.lang.String"/>
 	<parameter name="Classificacao" class="java.lang.String"/>
-	<field name="denominacao" class="java.lang.String"/>
+	<parameter name="IdUsuario" class="java.lang.Long"/>
+	<parameter name="Mes" class="java.util.Date"/>
+	<parameter name="JasperGeracaoDiariaReportLocation" class="java.lang.String"/>
+	<parameter name="JasperConsumoUconsumidorasReportLocation" class="java.lang.String"/>
+	<field name="denominacao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="denominacao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="unidade_consumidora"/>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -42,8 +87,9 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="183" splitType="Stretch">
-			<image scaleImage="FillFrame">
+		<band height="182" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<image scaleImage="FillFrame" onErrorType="Icon">
 				<reportElement x="0" y="11" width="148" height="33" uuid="4d27d9b0-a513-452e-b645-2c7baf845c25">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -52,7 +98,7 @@
 				<imageExpression><![CDATA["classpath:jasperreports/images/logo.gif"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="158" y="1" width="114" height="14" uuid="157bad40-6148-467e-ad95-851aae34479c">
+				<reportElement x="158" y="1" width="114" height="14" forecolor="#000000" uuid="157bad40-6148-467e-ad95-851aae34479c">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -64,7 +110,7 @@
 				<text><![CDATA[www.taldi.com.br]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="158" y="16" width="114" height="54" uuid="d090f9f6-879a-41bf-bb9f-b9d1a98c4869">
+				<reportElement x="158" y="16" width="114" height="54" forecolor="#000000" uuid="d090f9f6-879a-41bf-bb9f-b9d1a98c4869">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -77,7 +123,7 @@
  				]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2" y="59" width="274" height="14" forecolor="#0254A7" uuid="7e3250ec-0d7d-41f8-b192-c9400f3c11f4"/>
+				<reportElement x="2" y="59" width="274" height="14" forecolor="#0066A9" uuid="7e3250ec-0d7d-41f8-b192-c9400f3c11f4"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -90,7 +136,7 @@
 				<text><![CDATA[DADOS DO CLIENTE]]></text>
 			</staticText>
 			<rectangle radius="4">
-				<reportElement mode="Opaque" x="0" y="73" width="276" height="42" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="cafc51ad-b335-4be2-9fb5-c4ed18e7c4c8">
+				<reportElement mode="Opaque" x="0" y="73" width="276" height="42" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="cafc51ad-b335-4be2-9fb5-c4ed18e7c4c8">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -101,7 +147,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="4">
-				<reportElement mode="Opaque" x="0" y="131" width="276" height="42" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="487cdee7-76ac-4c13-a677-d3ae4673bbb3">
+				<reportElement mode="Opaque" x="0" y="131" width="276" height="42" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="487cdee7-76ac-4c13-a677-d3ae4673bbb3">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -109,6 +155,63 @@
 				</reportElement>
 				<graphicElement>
 					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="284" y="15" width="131" height="42" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="422b0514-fb94-4589-9d0d-e53af13f3ef4">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="284" y="73" width="131" height="42" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="edaa07c6-16ce-40da-9985-07a2e977ace9">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="284" y="131" width="131" height="42" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="d281e421-a316-490b-8841-151d65450ec2">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="423" y="15" width="131" height="42" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="9380f57a-555d-4cb1-becf-fa9a84b0e6fa">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#000000"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="423" y="73" width="131" height="42" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="295950ed-995e-4b8b-b497-54cafe7d32c8">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#14723F"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="423" y="131" width="131" height="42" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="94b0f53b-e048-41e5-98c2-c0e44d429054">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#0066A9"/>
 				</graphicElement>
 			</rectangle>
 			<textField>
@@ -144,8 +247,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{Classificacao}]]></textFieldExpression>
 			</textField>
-			<image onErrorType="Icon">
-				<reportElement x="235" y="78" width="32" height="32" uuid="12101119-8579-44dd-9155-75f19a9aff0f">
+			<image scaleImage="RetainShape" hAlign="Right" vAlign="Middle" onErrorType="Icon">
+				<reportElement x="225" y="78" width="42" height="32" uuid="12101119-8579-44dd-9155-75f19a9aff0f">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -153,7 +256,7 @@
 				<imageExpression><![CDATA[$P{LogoPath}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="2" y="117" width="271" height="14" forecolor="#0254A7" uuid="4c6204cd-ae8f-4dbc-a9fc-305f5e362a6a"/>
+				<reportElement x="2" y="117" width="271" height="14" forecolor="#0066A9" uuid="4c6204cd-ae8f-4dbc-a9fc-305f5e362a6a"/>
 				<textElement textAlignment="Left">
 					<font fontName="TaldiReportFont" size="10" isBold="true"/>
 				</textElement>
@@ -168,7 +271,7 @@
 				<textElement textAlignment="Left" verticalAlignment="Top">
 					<font fontName="TaldiReportFont" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{LogoPath}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["SÍTIO OLHO D'ÁGUA DO MATO, ZONA RURAL"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement mode="Transparent" x="2" y="145" width="274" height="14" backcolor="#E0E0E0" uuid="10a5f96c-e204-4ca5-84eb-4db387b511e7">
@@ -178,7 +281,7 @@
 				<textElement textAlignment="Left">
 					<font fontName="TaldiReportFont"/>
 				</textElement>
-				<text><![CDATA[RINCÃO, MOSSORÓ - RN, 59625-104]]></text>
+				<text><![CDATA[CEP - 59.650-000 - ASSU - RN]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Transparent" x="2" y="159" width="274" height="14" backcolor="#E0E0E0" uuid="0c4d4635-2351-4495-b6ed-3aab3c14ca5b">
@@ -188,67 +291,10 @@
 				<textElement textAlignment="Left">
 					<font fontName="TaldiReportFont"/>
 				</textElement>
-				<text><![CDATA[CONTATO@TALDI.COM.BR]]></text>
+				<text><![CDATA[GEORGE@AGUAAMANA.COM.BR]]></text>
 			</staticText>
-			<rectangle radius="4">
-				<reportElement x="285" y="15" width="131" height="42" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="422b0514-fb94-4589-9d0d-e53af13f3ef4">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="285" y="73" width="131" height="42" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="edaa07c6-16ce-40da-9985-07a2e977ace9">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="285" y="131" width="131" height="42" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="d281e421-a316-490b-8841-151d65450ec2">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="424" y="15" width="131" height="42" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="9380f57a-555d-4cb1-becf-fa9a84b0e6fa">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-				<graphicElement>
-					<pen lineColor="#000000"/>
-				</graphicElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="424" y="73" width="131" height="42" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="295950ed-995e-4b8b-b497-54cafe7d32c8">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-				<graphicElement>
-					<pen lineColor="#14723F"/>
-				</graphicElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="424" y="132" width="131" height="42" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="94b0f53b-e048-41e5-98c2-c0e44d429054">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-				<graphicElement>
-					<pen lineColor="#2054A7"/>
-				</graphicElement>
-			</rectangle>
 			<staticText>
-				<reportElement positionType="Float" x="287" y="1" width="120" height="14" forecolor="#000000" backcolor="#5287BC" uuid="c987d422-1ebd-4454-a29c-4180568e8774">
+				<reportElement positionType="Float" x="284" y="1" width="131" height="14" forecolor="#000000" backcolor="#5287BC" uuid="c987d422-1ebd-4454-a29c-4180568e8774">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<box>
@@ -257,23 +303,23 @@
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="TaldiReportFont" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[COMPETÊNCIA]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="285" y="15" width="131" height="42" forecolor="#000000" uuid="4864070e-33dd-45ee-affc-b4dbe36d43a4">
+			<textField pattern="MMM/yyyy">
+				<reportElement x="284" y="15" width="131" height="42" forecolor="#000000" uuid="4864070e-33dd-45ee-affc-b4dbe36d43a4">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="18" isBold="true"/>
 				</textElement>
-				<text><![CDATA[out/2017]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$P{Mes}]]></textFieldExpression>
+			</textField>
 			<staticText>
-				<reportElement x="287" y="59" width="130" height="14" forecolor="#000000" uuid="09f9424a-6e42-42b5-b145-8543e7734172">
+				<reportElement x="284" y="59" width="131" height="14" forecolor="#000000" uuid="09f9424a-6e42-42b5-b145-8543e7734172">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<box>
@@ -282,23 +328,23 @@
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="TaldiReportFont" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CONSUMO (KWH)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="285" y="72" width="131" height="42" forecolor="#000000" uuid="5503dadd-5b75-4d2b-9954-f3a070762055">
+				<reportElement x="284" y="73" width="131" height="42" forecolor="#000000" uuid="5503dadd-5b75-4d2b-9954-f3a070762055">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="18" isBold="true"/>
 				</textElement>
-				<text><![CDATA[1542]]></text>
+				<text><![CDATA[25.849,87]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="287" y="118" width="130" height="14" forecolor="#000000" uuid="682426f0-637a-4dc1-b0f0-d4a1c57fb9ef">
+				<reportElement x="284" y="118" width="131" height="14" forecolor="#000000" uuid="682426f0-637a-4dc1-b0f0-d4a1c57fb9ef">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<box>
@@ -307,44 +353,45 @@
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="TaldiReportFont" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[GERAÇÃO (KWH)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="285" y="131" width="131" height="42" forecolor="#000000" uuid="7873dc87-9b6f-40ca-a9da-a67c09a13b5a">
+				<reportElement x="284" y="131" width="131" height="42" forecolor="#000000" uuid="7873dc87-9b6f-40ca-a9da-a67c09a13b5a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="18" isBold="true"/>
 				</textElement>
-				<text><![CDATA[10513]]></text>
+				<text><![CDATA[23.162,31]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="426" y="118" width="128" height="14" forecolor="#2054A7" uuid="38f6a1ec-32f7-43c1-8978-b8547ca79dde"/>
+				<reportElement x="423" y="118" width="131" height="14" forecolor="#0066A9" uuid="38f6a1ec-32f7-43c1-8978-b8547ca79dde"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="TaldiReportFont" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[EFICIÊNCIA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="424" y="132" width="131" height="42" forecolor="#2054A7" uuid="25d4e13c-65a9-4746-b907-49a59b2f6b5b">
+				<reportElement x="423" y="131" width="131" height="42" forecolor="#0066A9" uuid="25d4e13c-65a9-4746-b907-49a59b2f6b5b">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="18" isBold="true"/>
 				</textElement>
-				<text><![CDATA[105,4%]]></text>
+				<text><![CDATA[106,75%]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="426" y="1" width="128" height="14" forecolor="#000000" backcolor="#5287BC" uuid="9283ab58-f339-4d68-99c0-3e1c28524284">
+				<reportElement positionType="Float" x="423" y="1" width="131" height="14" forecolor="#000000" backcolor="#5287BC" uuid="9283ab58-f339-4d68-99c0-3e1c28524284">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<box>
@@ -353,36 +400,36 @@
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="TaldiReportFont" size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TOTAL A PAGAR (R$)]]></text>
+				<text><![CDATA[FATURADO (R$)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="424" y="15" width="131" height="42" forecolor="#000000" uuid="dfe91ee0-1ece-45cf-bffc-dc7433351deb">
+				<reportElement x="423" y="15" width="131" height="42" forecolor="#000000" uuid="dfe91ee0-1ece-45cf-bffc-dc7433351deb">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="18" isBold="true"/>
 				</textElement>
-				<text><![CDATA[1025,44]]></text>
+				<text><![CDATA[1.290,03]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="424" y="73" width="131" height="42" forecolor="#146F3D" uuid="d5c73f5e-90bc-4671-9954-9a3bb231476b"/>
+				<reportElement x="423" y="73" width="131" height="42" forecolor="#146F3D" uuid="d5c73f5e-90bc-4671-9954-9a3bb231476b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="18" isBold="true"/>
 				</textElement>
-				<text><![CDATA[10513,32]]></text>
+				<text><![CDATA[10.815,44]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="426" y="59" width="128" height="14" forecolor="#14723F" uuid="e659bc8f-d17e-42fe-b0fd-ea3279bacc07"/>
+				<reportElement x="423" y="59" width="131" height="14" forecolor="#14723F" uuid="e659bc8f-d17e-42fe-b0fd-ea3279bacc07"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="TaldiReportFont" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ECONOMIA (R$)]]></text>
@@ -390,22 +437,114 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="66" splitType="Stretch">
+		<band height="68" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<rectangle radius="4">
-				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" forecolor="#FFFFFF" backcolor="#B3B3B3" uuid="6d2e8f5c-a11d-49a4-b657-eb2a9910d9b2">
+				<reportElement x="422" y="25" width="65" height="40" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="cdd00929-2cd1-4591-9fe2-00f2b5d021f7">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<graphicElement>
-					<pen lineColor="#000000"/>
+					<pen lineWidth="0.0" lineColor="#000000"/>
 				</graphicElement>
 			</rectangle>
-			<staticText>
-				<reportElement mode="Transparent" x="0" y="0" width="555" height="20" forecolor="#000000" backcolor="#5287BC" uuid="3963c449-6f5a-47cc-8238-fbd1f1005715">
+			<rectangle radius="4">
+				<reportElement x="352" y="25" width="67" height="40" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="591d163e-1a80-46d4-b2ac-fb173a72f917">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#000000"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="282" y="25" width="67" height="40" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="495e84af-c614-4766-8013-18b5e35f141a">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#000000"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="212" y="25" width="67" height="40" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="23643c05-3ad7-4c6f-908d-d30150312cda">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#000000"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="142" y="25" width="67" height="40" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="39d211aa-eb76-484d-a7c6-c284fd763b05">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#000000"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="72" y="25" width="67" height="40" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="ca1223a3-6a23-456b-bb4c-d083876ac0f3">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#000000"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="0" y="25" width="68" height="40" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="a1f7f1ef-02e9-43a2-954a-90b9f0d7eeab">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#000000"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="6a0600b1-55cd-468b-b0fa-2235aa3d7472">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="0" width="555" height="20" forecolor="#000000" backcolor="#5287BC" uuid="c636954c-fdbd-4a1b-8b7d-7b1e4f723414">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="10" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[INFORMAÇÕES ADICIONAIS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="25" width="68" height="40" forecolor="#000000" backcolor="#5287BC" uuid="7731fc45-5b1f-41de-8473-01ca000f7ecd">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
 					<pen lineWidth="1.0" lineColor="#000000"/>
@@ -417,187 +556,241 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[DETALHAMENTO DE GERAÇÃO E CONSUMO]]></text>
+				<text><![CDATA[Contrato]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="72" y="25" width="67" height="40" forecolor="#000000" backcolor="#5287BC" uuid="df3cb200-7289-4c0f-a464-834f197bd9dc">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Consumo Registrado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="142" y="25" width="67" height="40" forecolor="#000000" backcolor="#5287BC" uuid="84c31eb9-6d00-45b0-bbc6-12ff1c539de0">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Energia Injetada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="212" y="25" width="67" height="40" forecolor="#000000" backcolor="#5287BC" uuid="311d3dda-142e-49c8-a98d-ad40cb9cf3ae">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Consumo Instantâneo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="282" y="25" width="67" height="40" forecolor="#000000" backcolor="#5287BC" uuid="4c3278a5-a11a-4982-b8c6-0c96c19e45fb">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Energia Compensada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="352" y="25" width="67" height="40" forecolor="#000000" backcolor="#5287BC" uuid="a2ce8825-cfb1-4895-bdd3-7b374cac3d20">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Energia Faturada (kWh)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="426" y="25" width="58" height="40" forecolor="#000000" backcolor="#5287BC" uuid="ffbd5527-93c4-44a2-8aab-a25cac77916a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Energia Faturada (R$)]]></text>
 			</staticText>
 			<rectangle radius="4">
-				<reportElement x="0" y="24" width="68" height="40" forecolor="#FFFFFF" backcolor="#B3B3B3" uuid="a85b8dd1-b2af-4157-9a0a-f8628bcf3197">
+				<reportElement x="490" y="25" width="65" height="40" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="da1afdef-bc7c-4a4e-a7f8-77c4d4fc0bf9">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#000000"/>
+				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="0" y="24" width="68" height="40" forecolor="#000000" uuid="99665b60-ace3-413a-bea9-8fe7674ed055">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				<reportElement mode="Transparent" x="490" y="25" width="65" height="40" forecolor="#000000" backcolor="#5287BC" uuid="4393a42d-0934-4a80-8c98-d0547a247807">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="TaldiReportFont" size="9" isBold="true"/>
+					<font fontName="TaldiReportFont" size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[CONTRATO]]></text>
-			</staticText>
-			<rectangle radius="4">
-				<reportElement x="69" y="24" width="68" height="40" forecolor="#FFFFFF" backcolor="#B3B3B3" uuid="0514e707-7813-4d15-b9fa-e6af568afc23">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<staticText>
-				<reportElement x="69" y="24" width="68" height="40" forecolor="#000000" uuid="8955862b-b746-4afb-b17f-533b9d5c0f93">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="TaldiReportFont" size="9" isBold="true"/>
-				</textElement>
-				<text><![CDATA[CONSUMO
-REGISTRADO]]></text>
-			</staticText>
-			<rectangle radius="4">
-				<reportElement x="138" y="24" width="68" height="40" forecolor="#FFFFFF" backcolor="#B3B3B3" uuid="90fae072-9ed5-4da8-ade3-d57e3eccd9f4">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<staticText>
-				<reportElement x="138" y="24" width="68" height="40" forecolor="#000000" uuid="0ad4c046-a253-465d-baa2-748ff068c823">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="TaldiReportFont" size="9" isBold="true"/>
-				</textElement>
-				<text><![CDATA[ENERGIA INJETADA]]></text>
-			</staticText>
-			<rectangle radius="4">
-				<reportElement x="208" y="24" width="68" height="40" forecolor="#FFFFFF" backcolor="#B3B3B3" uuid="50faaa96-5824-4953-a79c-edce73ef48a7">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<staticText>
-				<reportElement x="208" y="24" width="68" height="40" forecolor="#000000" uuid="86d3b97e-9709-4c33-baf0-04e9b8b170c8">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="TaldiReportFont" size="9" isBold="true"/>
-				</textElement>
-				<text><![CDATA[CONSUMO
-IMEDIATO]]></text>
-			</staticText>
-			<rectangle radius="4">
-				<reportElement x="278" y="24" width="68" height="40" forecolor="#FFFFFF" backcolor="#B3B3B3" uuid="424064cc-e049-4106-826f-ecaeb08a94b9">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<staticText>
-				<reportElement x="275" y="24" width="74" height="40" forecolor="#000000" uuid="1f72ce0a-c638-4228-b5fe-e1d2de10944c">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="TaldiReportFont" size="9" isBold="true"/>
-				</textElement>
-				<text><![CDATA[ENERGIA
-COMPENSADA]]></text>
-			</staticText>
-			<rectangle radius="4">
-				<reportElement x="347" y="24" width="68" height="40" forecolor="#FFFFFF" backcolor="#B3B3B3" uuid="ec94d1c2-b8d3-4325-90a3-9bf9c8f76344">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<staticText>
-				<reportElement x="347" y="24" width="68" height="40" forecolor="#000000" uuid="173734c9-5aea-4f2d-b747-3d353c64bf7a">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="TaldiReportFont" size="9" isBold="true"/>
-				</textElement>
-				<text><![CDATA[ENERGIA FATURADA (KWH)]]></text>
-			</staticText>
-			<rectangle radius="4">
-				<reportElement x="416" y="24" width="68" height="40" forecolor="#FFFFFF" backcolor="#B3B3B3" uuid="c16c9e1e-7166-41da-b238-972a2a9a7c22">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<staticText>
-				<reportElement x="416" y="24" width="68" height="40" forecolor="#000000" uuid="055736b4-19ed-4d12-8aa6-da1137b3d08d">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="TaldiReportFont" size="9" isBold="true"/>
-				</textElement>
-				<text><![CDATA[ENERGIA FATURADA (R$)]]></text>
-			</staticText>
-			<rectangle radius="4">
-				<reportElement x="486" y="24" width="68" height="40" forecolor="#FFFFFF" backcolor="#B3B3B3" uuid="e362e26b-5982-4f9b-8f60-3c106670ff28">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<staticText>
-				<reportElement x="486" y="24" width="68" height="40" forecolor="#000000" uuid="4bcc2595-35b4-48e4-89e1-2b70f27198ed">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="TaldiReportFont" size="9" isBold="true"/>
-				</textElement>
-				<text><![CDATA[CRÉDITO 
-(KWH)]]></text>
+				<text><![CDATA[Crédito (kWh)]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="22" splitType="Stretch">
+		<band height="24" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<rectangle radius="4">
-				<reportElement x="0" y="0" width="68" height="20" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="617606a6-a869-4489-80cc-1bc0f2f7166c">
+				<reportElement x="0" y="1" width="68" height="20" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="617606a6-a869-4489-80cc-1bc0f2f7166c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#BEBEBE"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="72" y="1" width="67" height="20" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="c687986a-bf2d-4948-b5e4-aee4c7273188">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#BEBEBE"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="142" y="1" width="67" height="20" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="876e6dd1-4199-4230-a8db-3ecb987380fe">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#BEBEBE"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="212" y="1" width="67" height="20" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="50044873-faa3-473f-b5f9-f34957d03a80">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#BEBEBE"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="282" y="1" width="67" height="20" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="52965697-be77-4fc9-98d6-15a8e78264fa">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#BEBEBE"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="352" y="1" width="67" height="20" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="0f16c704-ab3c-4fcb-8695-9cd664c571b2">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#BEBEBE"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="422" y="1" width="65" height="20" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="333f00a2-b97f-45d7-ac66-6255e4cad77b">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#BEBEBE"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="490" y="1" width="65" height="20" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="74b85c43-80f1-4e90-9915-9dad8bcfe476">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#BEBEBE"/>
+				</graphicElement>
 			</rectangle>
 			<textField>
-				<reportElement x="0" y="0" width="68" height="20" uuid="e2ea1244-598d-4437-8884-2796752e7627">
+				<reportElement x="0" y="1" width="68" height="20" uuid="e2ea1244-598d-4437-8884-2796752e7627">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -608,119 +801,105 @@ COMPENSADA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{denominacao}]]></textFieldExpression>
 			</textField>
-			<rectangle radius="4">
-				<reportElement x="69" y="0" width="68" height="20" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="0c2ae927-2cb6-43a7-97a3-99c52e48a5c4">
+			<textField pattern="#,##0.00#;#,##0.00#-">
+				<reportElement x="72" y="1" width="67" height="20" uuid="f2a8ed9a-f047-466a-9cbb-21cc2406f610">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="139" y="0" width="68" height="20" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="da3cef8e-7d3c-4a74-9cfa-a11e4edd6c10">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["12.760,00"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="490" y="1" width="65" height="20" uuid="ca7e862e-8b4b-4c7d-81af-1c46189e538b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="208" y="0" width="68" height="20" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="42885d62-c2c8-45e8-8a6a-126fc46e9440">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["0,00"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="422" y="1" width="65" height="20" uuid="379aea6f-91aa-4d5b-8e66-17fa4880f30b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="279" y="0" width="68" height="20" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="d0d19214-4928-4f9d-8580-c3caa6261b8c">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["1.290,05"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;#,##0.00#-">
+				<reportElement x="142" y="1" width="67" height="20" uuid="dac38b38-f6d8-43ff-9853-75a3813cb6dd">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="349" y="0" width="68" height="20" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="30584072-b4d9-4ba6-9d4b-66303d390a5b">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["10.072,44"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="212" y="1" width="67" height="20" uuid="7a6b0515-c980-43cd-be54-a4000c696558">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="416" y="0" width="68" height="20" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="f501f12f-1e9e-4154-8b98-2b6a27f06b92">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["13.089,87"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;#,##0.00#-">
+				<reportElement x="282" y="1" width="67" height="20" uuid="c6bdc0f6-6fed-4ce6-b60a-95b78b144b6e">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="487" y="0" width="68" height="20" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="4518816b-8a63-45ce-a2e3-c166b7ba6f81">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["10.072,44"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="352" y="1" width="67" height="20" uuid="3e58c185-929f-43ce-aa35-9a64e315378a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
-			</rectangle>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["2.754,75"]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="280" splitType="Stretch">
+		<band height="307" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<barChart>
-				<chart isShowLegend="false" evaluationTime="Report">
-					<reportElement x="280" y="21" width="277" height="149" uuid="6228a2d3-8fb5-4897-b13c-e52aca3c6043"/>
-					<chartTitle/>
-					<chartSubtitle/>
-					<chartLegend position="Top"/>
-				</chart>
-				<categoryDataset>
-					<categorySeries>
-						<seriesExpression><![CDATA["SERIES 1"]]></seriesExpression>
-						<categoryExpression><![CDATA[0]]></categoryExpression>
-						<valueExpression><![CDATA[0]]></valueExpression>
-					</categorySeries>
-				</categoryDataset>
-				<barPlot>
-					<plot/>
-					<itemLabel/>
-					<categoryAxisFormat>
-						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
-					</categoryAxisFormat>
-					<valueAxisFormat>
-						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
-					</valueAxisFormat>
-				</barPlot>
-			</barChart>
-			<stackedBar3DChart>
-				<chart isShowLegend="false" evaluationTime="Report">
-					<reportElement x="0" y="21" width="275" height="149" uuid="01dec695-bd9a-445b-823a-c780e1f6ec25"/>
-					<chartTitle/>
-					<chartSubtitle/>
-					<chartLegend position="Top"/>
-				</chart>
-				<categoryDataset>
-					<categorySeries>
-						<seriesExpression><![CDATA["SERIES 1"]]></seriesExpression>
-						<categoryExpression><![CDATA[0]]></categoryExpression>
-						<valueExpression><![CDATA[0]]></valueExpression>
-					</categorySeries>
-				</categoryDataset>
-				<bar3DPlot>
-					<plot/>
-					<itemLabel/>
-					<categoryAxisFormat>
-						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
-					</categoryAxisFormat>
-					<valueAxisFormat>
-						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
-					</valueAxisFormat>
-				</bar3DPlot>
-			</stackedBar3DChart>
 			<rectangle radius="4">
-				<reportElement x="0" y="3" width="276" height="20" forecolor="#FFFFFF" backcolor="#5287BC" uuid="295a4eb6-9daa-4afd-af58-880fc3314640">
+				<reportElement mode="Opaque" x="282" y="28" width="273" height="20" forecolor="#FFFFFF" backcolor="#5287BC" uuid="43dd03c0-67d0-4511-94f0-8985680463ca">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement mode="Opaque" x="0" y="167" width="279" height="20" forecolor="#FFFFFF" backcolor="#5287BC" uuid="c6f80eef-68ce-4349-bd4b-a5264ffedede">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -728,8 +907,9 @@ COMPENSADA]]></text>
 				</reportElement>
 			</rectangle>
 			<staticText>
-				<reportElement mode="Transparent" x="0" y="3" width="278" height="20" forecolor="#FFFFFF" backcolor="#5287BC" uuid="ae64f509-88e8-4e23-9fa2-2fbb5b206abf">
+				<reportElement mode="Transparent" x="0" y="167" width="279" height="20" forecolor="#FFFFFF" backcolor="#5287BC" uuid="0cebbb91-b336-4576-8ab9-6e30f6c7a944">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
 					<pen lineWidth="1.0" lineColor="#000000"/>
@@ -741,10 +921,98 @@ COMPENSADA]]></text>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="10" isBold="true" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[GRÁFICO DE CONSUMO]]></text>
+				<text><![CDATA[EFICIÊNCIA DA GERAÇÃO]]></text>
 			</staticText>
 			<rectangle radius="4">
-				<reportElement x="279" y="3" width="276" height="20" forecolor="#FFFFFF" backcolor="#5287BC" uuid="4716b6ba-41ca-4a39-b8ad-3efa931eed42">
+				<reportElement x="0" y="0" width="68" height="20" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="41ae19a0-5531-4023-8338-737aaef0975e">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#000000"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="72" y="0" width="67" height="20" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="6c8f5fd4-a573-4652-941c-1a158b2f513d">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#000000"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="142" y="0" width="67" height="20" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="989221bc-3d2e-4313-9e9f-d2cb54d4792f">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#000000"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="212" y="0" width="67" height="20" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="c1f0bd3b-6e6c-4355-b0b9-a368ddc090b6">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#000000"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="282" y="0" width="67" height="20" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="c796d8fe-75aa-4913-9e17-8fbb0620125a">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#000000"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="352" y="0" width="67" height="20" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="55666ff9-0b55-425f-b30e-5d54aea9cdd1">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#000000"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="422" y="0" width="65" height="20" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="17116e57-1d73-4606-858a-103707aa56ea">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#000000"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="490" y="0" width="65" height="20" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="ece662a4-e412-4d74-82a4-4921bd450ba2">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#000000"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement mode="Opaque" x="0" y="28" width="280" height="20" forecolor="#FFFFFF" backcolor="#5287BC" uuid="8ff04867-a8f7-41cd-86bd-3552c2afabf4">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -752,9 +1020,10 @@ COMPENSADA]]></text>
 				</reportElement>
 			</rectangle>
 			<staticText>
-				<reportElement mode="Transparent" x="279" y="3" width="278" height="20" forecolor="#FFFFFF" backcolor="#5287BC" uuid="6da76f9f-faf0-4fbd-9f71-9ce9ecfd5491">
+				<reportElement mode="Transparent" x="0" y="28" width="280" height="20" forecolor="#FFFFFF" backcolor="#5287BC" uuid="fb37dac4-ee3d-493d-a233-eff61b2d2179">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
 					<pen lineWidth="1.0" lineColor="#000000"/>
@@ -766,147 +1035,13 @@ COMPENSADA]]></text>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="10" isBold="true" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[GRÁFICO DE GERAÇÃO]]></text>
+				<text><![CDATA[CONSUMO UNIDADES CONSUMIDORAS]]></text>
 			</staticText>
-			<rectangle radius="4">
-				<reportElement x="-1" y="191" width="68" height="40" forecolor="#FFFFFF" backcolor="#B3B3B3" uuid="a3209922-1848-4e1d-8d67-72d684936760">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="68" y="191" width="68" height="40" forecolor="#FFFFFF" backcolor="#B3B3B3" uuid="7e0893b4-5d60-4b6d-bdd7-bc6ebaf11d33">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="137" y="191" width="68" height="40" forecolor="#FFFFFF" backcolor="#B3B3B3" uuid="346fdeeb-e272-42d8-972a-2206c402f7a7">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="207" y="191" width="68" height="40" forecolor="#FFFFFF" backcolor="#B3B3B3" uuid="37caeb75-65ba-4bef-857d-847bc2129a9c">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="277" y="191" width="68" height="40" forecolor="#FFFFFF" backcolor="#B3B3B3" uuid="76420ec7-58f6-472d-8d73-69564a77f8d4">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="346" y="191" width="68" height="40" forecolor="#FFFFFF" backcolor="#B3B3B3" uuid="bd4ca8bc-82d3-41e1-89f4-89e02715e386">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="415" y="191" width="68" height="40" forecolor="#FFFFFF" backcolor="#B3B3B3" uuid="cb699572-4d06-46b1-9a4b-407d426f1f81">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="485" y="191" width="68" height="40" forecolor="#FFFFFF" backcolor="#B3B3B3" uuid="87473112-3d5f-4095-bcb0-a0a187551628">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="-1" y="235" width="68" height="20" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="70b71afe-6674-4bd6-85ab-28c9a30b02f2">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="68" y="235" width="68" height="20" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="ad43311a-d162-4fbf-b2c3-c9acb2beaa7c">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="138" y="235" width="68" height="20" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="b8fc1d1f-5070-499a-9c40-a27f73227f7d">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="207" y="235" width="68" height="20" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="7aa79e5e-c05b-4669-9429-1e78d894593b">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="278" y="235" width="68" height="20" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="67975def-ba14-4ce3-a3f3-62f0beeba7bc">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="348" y="235" width="68" height="20" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="3c4db1bd-6829-4438-806f-f9428c5b17db">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="415" y="235" width="68" height="20" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="366fe5e6-8cfb-4a0b-b735-6714bac88fac">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement x="486" y="235" width="68" height="20" forecolor="#FFFFFF" backcolor="#E0E0E0" uuid="ff31ba59-5fed-4979-a8d2-66a2a26ec487">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<rectangle radius="4">
-				<reportElement mode="Opaque" x="-1" y="168" width="555" height="20" forecolor="#FFFFFF" backcolor="#5287BC" uuid="c6f80eef-68ce-4349-bd4b-a5264ffedede">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
 			<staticText>
-				<reportElement mode="Transparent" x="-1" y="168" width="555" height="18" forecolor="#FFFFFF" backcolor="#5287BC" uuid="0cebbb91-b336-4576-8ab9-6e30f6c7a944">
+				<reportElement mode="Transparent" x="282" y="28" width="273" height="20" forecolor="#FFFFFF" backcolor="#5287BC" uuid="0f0b4523-c1cd-4b9d-88d6-858ed585f441">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
 					<pen lineWidth="1.0" lineColor="#000000"/>
@@ -916,230 +1051,491 @@ COMPENSADA]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="true" isUnderline="false"/>
+					<font fontName="TaldiReportFont" size="10" isBold="true" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[INFORMAÇÕES ADICIONAIS]]></text>
+				<text><![CDATA[GERAÇÃO DIÁRIA [KWH]]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="485" y="233" width="68" height="20" forecolor="#000000" uuid="5874d01e-de35-42f7-b4c9-c5795e798252">
+			<textField>
+				<reportElement x="0" y="0" width="68" height="20" uuid="6c727f4c-7e07-4c6b-816b-712899624c28">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Total"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;#,##0.00#-">
+				<reportElement x="72" y="0" width="67" height="20" uuid="49c81026-ffae-4e86-8e8f-ff2e195bd105">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["12.760,00"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;#,##0.00#-">
+				<reportElement x="142" y="0" width="67" height="20" uuid="f6d6110e-6a6d-4653-be5e-a4321c89313b">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["10.072,44"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="212" y="0" width="67" height="20" uuid="f28d99fa-d108-4b50-9473-278b7fc3914e">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["13.089,87"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;#,##0.00#-">
+				<reportElement x="282" y="0" width="67" height="20" uuid="4dcedaf2-3dc6-4d7a-89d3-10423c7263a0">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["10.072,44"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="352" y="0" width="67" height="20" uuid="219a2673-998a-4368-82ec-232d0452367c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["2.754,75"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="422" y="0" width="65" height="20" uuid="026f89f6-843e-45e7-b234-a9d05d6d1516">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["1.290,05"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="490" y="0" width="65" height="20" uuid="09c27c5f-3f15-4f97-9c02-069631b3335c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["0,00"]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="282" y="48" width="273" height="259" uuid="4d71950d-aa10-4f31-9e17-b771f742466b">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="false"/>
-				</textElement>
-				<text><![CDATA[10.072,44]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="485" y="190" width="68" height="40" forecolor="#000000" uuid="16ba6454-24ee-4488-ac5e-9160ead29b1e">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{JasperGeracaoDiariaReportLocation}]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="0" y="48" width="280" height="119" uuid="ca540b8f-ca3b-45fc-872d-98ccc54e8d18">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[CRÉDITO
-ACUMULADO
-(KWH)]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="415" y="234" width="68" height="20" forecolor="#000000" uuid="64e44303-f503-4a66-89f0-ec792e20c93e">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{JasperConsumoUconsumidorasReportLocation}]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="0" y="187" width="280" height="120" uuid="ef326de9-37cb-4945-9536-2eafb809052b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="false"/>
-				</textElement>
-				<text><![CDATA[96,31%]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="415" y="190" width="68" height="40" forecolor="#000000" uuid="0049a7f2-ac25-4a0f-999b-d591fff025df">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[ECONOMIA
-(%)]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="348" y="234" width="68" height="20" forecolor="#000000" uuid="34ed8b21-143e-425c-a8a4-133df6a8597c">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="false"/>
-				</textElement>
-				<text><![CDATA[10.072,44]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="346" y="190" width="68" height="40" forecolor="#000000" uuid="3f4797d2-d73e-462e-b94e-a9f54b3d7cb9">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[CUSTO
-SEM
-USINA]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="274" y="190" width="74" height="40" forecolor="#000000" uuid="529582db-44a4-4e09-8f52-329b41d095ba">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[CONSUMO
-TOTAL
-(R$)]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="207" y="234" width="68" height="20" forecolor="#000000" uuid="5d6abc1f-3498-4c6e-9586-71c5407157ad">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="false"/>
-				</textElement>
-				<text><![CDATA[10.072,44]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="207" y="190" width="68" height="40" forecolor="#000000" uuid="51c8b708-fc5e-4ffd-9308-9eef8ca222a2">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[CONSUMO
-TOTAL
-(KWH)]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="138" y="234" width="68" height="20" forecolor="#000000" uuid="bc8fe893-1265-49f5-9a07-d83cb5bf5537">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="false"/>
-				</textElement>
-				<text><![CDATA[10.072,44]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="137" y="190" width="68" height="40" forecolor="#000000" uuid="9aff2a2a-ac8b-4890-be5f-3f9ef0472aa9">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[GERAÇÃO
-TOTAL
-(R$)]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="69" y="234" width="68" height="20" forecolor="#000000" uuid="9af5bc26-bd9e-4bb3-80f2-b927200396fd">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="false"/>
-				</textElement>
-				<text><![CDATA[12.760,00]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="68" y="190" width="68" height="40" forecolor="#000000" uuid="21d2e2ea-4f2c-4d48-ac10-dc5a31d866db">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[GERAÇÃO
-TOTAL
-(KWH)]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="-1" y="223" width="68" height="44" forecolor="#000000" uuid="f3756c64-c40f-443d-a68c-28a37e16f4dc">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="false"/>
-				</textElement>
-				<text><![CDATA[31/08/17 à 13/10/17]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="-1" y="190" width="68" height="40" forecolor="#000000" uuid="32fa1086-b232-4c0f-afbe-a42a323b43c5">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[CICLO
-FATURA]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="281" y="234" width="68" height="20" forecolor="#000000" uuid="d54d34c9-34c6-4498-847a-1b773631decb">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="false"/>
-				</textElement>
-				<text><![CDATA[10.072,44]]></text>
-			</staticText>
-			<line>
-				<reportElement x="1" y="260" width="555" height="1" uuid="e629fb2b-6b2e-4f4a-85a7-fe4f0ba19a49">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				</reportElement>
-			</line>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+			</subreport>
 		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="30" splitType="Stretch">
-			<textField>
-				<reportElement x="500" y="6" width="50" height="21" uuid="9b0f5644-3765-4920-b724-70aaf5d723e3"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
+		<band height="96">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<rectangle radius="4">
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" forecolor="#FFFFFF" backcolor="#5287BC" uuid="37489735-134c-4af6-8fc7-2dfd835e4f3a">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="0" width="555" height="20" forecolor="#FFFFFF" backcolor="#5287BC" uuid="aea240c9-e39d-484c-b9c1-bae9d98e2aa4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="10" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[INFORMAÇÕES ADICIONAIS]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="94" width="555" height="1" uuid="6c2c4a5a-3c2f-4e83-814e-51fbe1c8b9b4">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="2.0" lineStyle="Solid" lineColor="#5287BC"/>
+				</graphicElement>
+			</line>
+			<rectangle radius="4">
+				<reportElement x="0" y="24" width="66" height="40" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="1bee6542-d3a8-4bd8-958a-9e097abd7ee9">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="69" y="24" width="67" height="40" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="17fcfe25-2a93-4f79-abb5-1ba325820998">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="139" y="24" width="67" height="40" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="a4afea57-efde-43b0-a6fc-cb6cb73b3bb2">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="209" y="24" width="67" height="40" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="0dcff6dc-ea72-4404-82e1-21ef52b28ad6">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="489" y="24" width="66" height="40" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="62e3ddd5-6a4f-4b99-8345-40ac6769f562">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="419" y="24" width="67" height="40" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="3bf21aa4-84fa-4f13-8d15-045beecb7f6d">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="349" y="24" width="67" height="40" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="70d13995-be1e-4df8-9eb8-91cd250aadf1">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="279" y="24" width="67" height="40" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="1a63b459-3878-4cb1-8fa0-0fece2ca92d8">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="24" width="66" height="40" forecolor="#000000" backcolor="#5287BC" uuid="f03795cd-c8df-4da5-8d35-f602c9407d81">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ciclo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="69" y="24" width="67" height="40" forecolor="#000000" backcolor="#5287BC" uuid="45ce83f2-993e-48aa-8b94-5032a85e6fd4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Geração (R$)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="139" y="24" width="67" height="40" forecolor="#000000" backcolor="#5287BC" uuid="5ba25ea9-3514-4b32-9b0f-96adbb18364a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Consumo (R$)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="209" y="24" width="67" height="40" forecolor="#000000" backcolor="#5287BC" uuid="338a9392-b29f-454f-841a-e59ef85722db">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Faturado (R$)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="279" y="24" width="67" height="40" forecolor="#000000" backcolor="#5287BC" uuid="8279b4bc-5d81-4092-9cfe-017dd529d843">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Economia (R$)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="349" y="24" width="67" height="40" forecolor="#000000" backcolor="#5287BC" uuid="a547ba33-c314-40de-9271-6ef728bda2cf">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Economia (%)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="419" y="24" width="67" height="40" forecolor="#000000" backcolor="#5287BC" uuid="914ddd99-7b13-4603-8fbe-515f6b10eb5e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Crédito]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="490" y="24" width="64" height="40" forecolor="#000000" backcolor="#5287BC" uuid="9930f1fb-8a16-4088-8d47-af4aaea593a4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Crédito Acumulado]]></text>
+			</staticText>
+			<rectangle radius="4">
+				<reportElement x="0" y="69" width="66" height="20" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="0d17235f-9aef-4d0c-b3ca-fdb0b83ad879">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="69" y="69" width="67" height="20" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="77892613-c008-4e44-b2c6-91189846b37a">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="139" y="69" width="67" height="20" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="0fec96a5-8027-42d9-9765-a2b0d8909c37">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="209" y="69" width="67" height="20" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="b34d0796-c0fc-450b-a114-bdffc8834d3d">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="279" y="69" width="67" height="20" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="8f3cd167-0c30-4f94-baa7-91d3da0e6d39">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="349" y="69" width="67" height="20" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="54ee66e3-43b0-49eb-a8d3-156e61b8d8f5">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="419" y="69" width="67" height="20" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="398bca9b-72fd-4c10-a095-3d0e99cc6fce">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="4">
+				<reportElement x="489" y="69" width="66" height="20" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="caef1c5e-7aa5-4092-99dd-072763146334">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
 		</band>
 	</pageFooter>
 	<summary>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="grafico_geracao" pageWidth="273" pageHeight="259" whenNoDataType="AllSectionsNoDetail" columnWidth="273" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e57210ad-243c-4934-9af6-071c6cd79543">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Taldi DB"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<queryString>
+		<![CDATA[SELECT data, quantidade FROM geracao_solar]]>
+	</queryString>
+	<field name="data" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="data"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="geracao_solar"/>
+	</field>
+	<field name="quantidade" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="quantidade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="geracao_solar"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="259">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<barChart>
+				<chart isShowLegend="false" evaluationTime="Report">
+					<reportElement x="-6" y="0" width="279" height="259" uuid="db986a16-8dba-4e55-b2c1-34dd5de6ddc6"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["SERIES 1"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{data}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{quantidade}]]></valueExpression>
+						<labelExpression><![CDATA[$F{quantidade}.toString()]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot isShowLabels="true">
+					<plot orientation="Horizontal">
+						<seriesColor seriesOrder="0" color="#CBCBCB"/>
+					</plot>
+					<itemLabel>
+						<font fontName="TaldiReportFont" size="6" isBold="true"/>
+					</itemLabel>
+					<categoryAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000">
+							<tickLabelFont>
+								<font fontName="TaldiReportFont" size="6"/>
+							</tickLabelFont>
+						</axisFormat>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000">
+							<tickLabelFont>
+								<font fontName="TaldiReportFont" size="6"/>
+							</tickLabelFont>
+						</axisFormat>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+		</band>
+	</pageHeader>
+</jasperReport>

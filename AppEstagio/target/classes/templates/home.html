@@ -25,9 +25,7 @@
 						<th class="text-center">Id</th>
 						<th class="text-center">Nome</th>
 						<th class="text-center">E-mail</th>
-						<th class="text-center">UC</th>
-						<th class="text-center">Relatório</th>
-
+						<th class="text-center">Unidades Consumidoras</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -39,10 +37,6 @@
 							<td><a th:href="@{uconsumidora/{id}(id=${usuario.id})}"> <img
 									src="/images/glyphicons/png/glyphicons-21-home.png" width="22"
 									height="20"></img>
-							</a></td>
-							<td><a th:href="@{solar/pdf/{id}(id=${usuario.id})}"> <img
-									src="/images/glyphicons/png/glyphicons-30-notes-2.png"
-									width="15" height="20"></img>
 							</a></td>
 						</tr>
 					</th:block>

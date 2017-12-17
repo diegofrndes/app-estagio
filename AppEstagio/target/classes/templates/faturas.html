@@ -26,20 +26,26 @@
 						<th class="text-center">Mês</th>
 						<th class="text-center">Valor</th>
 						<th class="text-center">Vencimento</th>
-						<th class="text-center">Visualizar</th>
+						<th class="text-center">Fatura</th>
+						<th class="text-center">Relatório</th>
+						
 					</tr>
 				</thead>
 				<tbody>
 					<th:block th:each="fatura : ${faturas}">
 						<tr>
 							<td th:text="${fatura.key.id}" />
-							<td th:text="${#dates.monthNameShort(fatura.key.cicloMes)} + '/' + ${#dates.year(fatura.key.cicloMes)}"/>
+							<td th:text="${#dates.monthNameShort(fatura.key.mesAno)} + '/' + ${#dates.year(fatura.key.mesAno)}"/>
 							<td th:text="${fatura.value}" />
 							<td th:text="${#dates.format(fatura.key.dataVencimento, 'dd/MM/yyyy')}"/>
 							<td><a th:href="@{http://localhost:8080/files/{filename}(filename=${'fatura.pdf'}, 
 							path=${'usuarios/' + fatura.key.unidadeConsumidora.usuario.id + '/faturas/' + fatura.key.id + '/'})}"> <img
 									src="/images/glyphicons/png/glyphicons-685-article.png" width="19"
 									height="24"></img>
+							</a></td>
+							<td><a th:href="@{solar/pdf/{id}?mes={mes}(id=${fatura.key.unidadeConsumidora.usuario.id}, mes=${fatura.key.mesAno})}"> <img
+									src="/images/glyphicons/png/glyphicons-30-notes-2.png"
+									width="15" height="20"></img>
 							</a></td>
 						</tr>
 					</th:block>

@@ -1,29 +1,30 @@
 package br.com.taldi.usina;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import br.com.taldi.usuario.Usuario;
 
 @Entity
 public class GeracaoSolar {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	private float kwh;
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_usuario")
-	private Usuario usuario;
-	@Temporal(TemporalType.TIMESTAMP)
+	private BigDecimal quantidade;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_usina_solar")
+	private UsinaSolar usinaSolar;
+	@Temporal(TemporalType.DATE)
 	private Date data;
 
 	public long getId() {
@@ -41,21 +42,13 @@ public class GeracaoSolar {
 	public void setData(Date data) {
 		this.data = data;
 	}
-	
-	public Usuario getUsuario() {
-		return usuario;
+
+	public BigDecimal getQuantidade() {
+		return quantidade;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
-	public float getKwh() {
-		return kwh;
-	}
-
-	public void setKwh(float kwh) {
-		this.kwh = kwh;
+	public void setQuantidade(BigDecimal quantidade) {
+		this.quantidade = quantidade;
 	}
 
 }

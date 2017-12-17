@@ -17,7 +17,7 @@ public class FaturaService {
 
 	public HashMap<Fatura, BigDecimal> getByUnidadeConsumidoraId(long unidadeConsumidoraId) {		
 		HashMap<Fatura, BigDecimal> faturas = new HashMap<Fatura, BigDecimal>();
-		faturaRepository.findByUnidadeConsumidoraId(unidadeConsumidoraId).forEach(fatura->faturas.put(fatura, faturaRepository.findSumValorByFaturaId(fatura.getId())));
+		faturaRepository.findByUnidadeConsumidoraId(unidadeConsumidoraId).forEach(fatura->faturas.put(fatura, faturaRepository.getValorConsumoByFaturaId(fatura.getId()).add(faturaRepository.getValorOutroByFaturaId(fatura.getId()))));
 		return faturas;
 	}
 
