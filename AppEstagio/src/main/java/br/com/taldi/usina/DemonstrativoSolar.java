@@ -25,7 +25,9 @@ public class DemonstrativoSolar {
 	private BigDecimal energiaRegistrada;
 	private BigDecimal energiaInjetada;
 	private BigDecimal energiaCompensada;
+	private BigDecimal energiaFaturada;
 	private BigDecimal credito;
+	
 	@Temporal(TemporalType.DATE)
 	private Date cicloMes;
 	@Temporal(TemporalType.DATE)
@@ -106,6 +108,14 @@ public class DemonstrativoSolar {
 
 	public void setCredito(BigDecimal credito) {
 		this.credito = credito;
+	}
+
+	public BigDecimal getEnergiaFaturada() {
+		return energiaFaturada;
+	}
+
+	public void setEnergiaFaturada(BigDecimal energiaFaturada) {
+		this.energiaFaturada = energiaFaturada;
 	}
 
 }

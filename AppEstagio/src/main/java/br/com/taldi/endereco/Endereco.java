@@ -2,6 +2,7 @@ package br.com.taldi.endereco;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,10 +16,10 @@ public class Endereco {
 	private long id;
 	private String bairro;
 	private String logradouro;
-	@Column(length = 8)
+	@Column(length = 9)
 	private String cep;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_cidade", referencedColumnName = "id")
 	private Cidade cidade;
 

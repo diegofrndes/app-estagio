@@ -10,9 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import br.com.taldi.aneel.Classificacao;
 import br.com.taldi.aneel.Ligacao;
+import br.com.taldi.endereco.Endereco;
 import br.com.taldi.pessoa.Pessoa;
 import br.com.taldi.usuario.Usuario;
 
@@ -26,6 +28,10 @@ public class UnidadeConsumidora {
 	private String denominacao;
 	private String contrato;
 	
+	@OneToOne
+	@JoinColumn(name = "id_endereco", referencedColumnName = "id")
+	private Endereco endereco;
+
 	@ManyToOne
 	@JoinColumn(name = "id_classificacao", referencedColumnName = "id")
 	private Classificacao classificacao;
@@ -93,4 +99,11 @@ public class UnidadeConsumidora {
 		this.ligacao = ligacao;
 	}
 
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 }

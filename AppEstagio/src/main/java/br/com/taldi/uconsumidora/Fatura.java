@@ -20,7 +20,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "mesAno", "id_unidade_consumidora" }) })
+//@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "mesAno", "id_unidade_consumidora" }) })
 public class Fatura {
 
 	@Id

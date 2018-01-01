@@ -1,5 +1,6 @@
 package br.com.taldi.reports;
 
+import java.math.BigDecimal;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -8,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,7 +26,6 @@ import org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView;
 import br.com.taldi.armazenamento.ArmazenamentoProperties;
 import br.com.taldi.pessoa.fisica.PessoaFisica;
 import br.com.taldi.pessoa.juridica.PessoaJuridica;
-import br.com.taldi.uconsumidora.UnidadeConsumidora;
 import br.com.taldi.usina.DemonstrativoSolarDTO;
 import br.com.taldi.usina.DemonstrativoSolarService;
 
@@ -51,29 +53,37 @@ public class RelatorioSolarController {
     	Map<String, Object> params = new HashMap<>();
     	params.put("IdUsuario", id);
         params.put("Mes", mes);
+        params.put("Tarifa", new BigDecimal("0.4682998"));
+        params.put("Prognostico", new BigDecimal("179999.15"));
         params.put("LogoPath", Paths.get(armazenamentoProperties.getLocation()).toString() + "/usuarios/" + Long.toString(id) + "/logo/logo.png");
         List<DemonstrativoSolarDTO> datasource = new ArrayList<DemonstrativoSolarDTO>();
     	datasource = demonstrativoSolarService.getUCBeneficiadaSolarByUsuarioAndMesAno(id, mes);
         if(datasource != null) {
-        	while(datasource.size() < 5) {
-    			DemonstrativoSolarDTO vazio = new DemonstrativoSolarDTO();
-    			UnidadeConsumidora ucVazia = new UnidadeConsumidora();
-    			ucVazia.setDenominacao("-");
-    			vazio.setUnidadeConsumidora(ucVazia);
-    			datasource.add(vazio);
-    		}
-    		params.put("Nome", datasource.get(0).getUnidadeConsumidora().getUsuario().getPessoa().getNome());
+        	params.put("Nome", datasource.get(0).getUnidadeConsumidora().getUsuario().getPessoa().getNome());
     		if(datasource.get(0).getUnidadeConsumidora().getUsuario().getPessoa() instanceof PessoaFisica)
                 params.put("Documento", "CPF " + ((PessoaFisica) datasource.get(0).getUnidadeConsumidora().getUsuario().getPessoa()).getCpf());
             else if(datasource.get(0).getUnidadeConsumidora().getUsuario().getPessoa() instanceof PessoaJuridica)
                 params.put("Documento", "CNPJ " + ((PessoaJuridica) datasource.get(0).getUnidadeConsumidora().getUsuario().getPessoa()).getCnpj());
     		params.put("Classificacao", datasource.get(0).getUnidadeConsumidora().getClassificacao().toString() +
     				" " + datasource.get(0).getUnidadeConsumidora().getLigacao().getNome());
+    		params.put("LogradouroBairro", datasource.get(0).getUnidadeConsumidora().getEndereco().getLogradouro() +
+    				", " + datasource.get(0).getUnidadeConsumidora().getEndereco().getBairro());
+    		params.put("CepCidade", "CEP - " + datasource.get(0).getUnidadeConsumidora().getEndereco().getCep() +
+    				" - " + datasource.get(0).getUnidadeConsumidora().getEndereco().getCidade().getNome()
+    				+" - " + datasource.get(0).getUnidadeConsumidora().getEndereco().getCidade().getEstado().getUf());
+    		params.put("Email", datasource.get(0).getUnidadeConsumidora().getUsuario().getLogin());
+    		params.put("CicloInicio", datasource.get(0).getDemonstrativoSolar().getCicloInicio());
+            params.put("CicloFim", datasource.get(0).getDemonstrativoSolar().getCicloFim());
+            BigDecimal diasCiclo = new BigDecimal(Days.daysBetween(
+					 new LocalDate(datasource.get(0).getDemonstrativoSolar().getCicloInicio().getTime()), 
+    				 new LocalDate(datasource.get(0).getDemonstrativoSolar().getCicloFim().getTime())).getDays()).add(new BigDecimal("1"));
+            params.put("NumeroDias", diasCiclo);
+            params.put("GeracaoAtual", new BigDecimal("23162.31"));
         }
         params.put("datasource", datasource);
         params.put("JasperGeracaoDiariaReportLocation", "classpath:jasperreports/reports/geracao_solar_mensal.jasper");
-        params.put("JasperConsumoUconsumidorasReportLocation", "classpath:jasperreports/reports/consumo_uconsumidoras.jasper");
         
+        //params.put("DominioGrafico", dominioGrafico);
     	//if(usuario.getPessoa() instanceof PessoaFisica)
         //    params.put("Documento", "CPF " + ((PessoaFisica) usuario.getPessoa()).getCpf());
         //else if(usuario.getPessoa() instanceof PessoaJuridica)

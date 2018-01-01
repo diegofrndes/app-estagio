@@ -46,11 +46,55 @@
 	<parameter name="IdUsuario" class="java.lang.Long"/>
 	<parameter name="Mes" class="java.util.Date"/>
 	<parameter name="JasperGeracaoDiariaReportLocation" class="java.lang.String"/>
-	<parameter name="JasperConsumoUconsumidorasReportLocation" class="java.lang.String"/>
-	<field name="denominacao" class="java.lang.String">
+	<parameter name="LogradouroBairro" class="java.lang.String"/>
+	<parameter name="CepCidade" class="java.lang.String"/>
+	<parameter name="Email" class="java.lang.String"/>
+	<parameter name="Tarifa" class="java.math.BigDecimal"/>
+	<parameter name="ExpectativaGeracao" class="java.math.BigDecimal"/>
+	<parameter name="GraficoDominio" class="java.util.List"/>
+	<parameter name="JasperEficienciaReportLocation" class="java.lang.String"/>
+	<parameter name="EficienciaGraficoDataSource" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="CicloInicio" class="java.util.Date"/>
+	<parameter name="CicloFim" class="java.util.Date"/>
+	<parameter name="Prognostico" class="java.math.BigDecimal"/>
+	<parameter name="NumeroDias" class="java.math.BigDecimal"/>
+	<parameter name="GeracaoAtual" class="java.math.BigDecimal"/>
+	<field name="unidadeConsumidora.denominacao" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="denominacao"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="unidade_consumidora"/>
 	</field>
+	<field name="demonstrativoSolar.energiaRegistrada" class="java.math.BigDecimal"/>
+	<field name="demonstrativoSolar.energiaInjetada" class="java.math.BigDecimal"/>
+	<field name="demonstrativoSolar.energiaCompensada" class="java.math.BigDecimal"/>
+	<field name="demonstrativoSolar.energiaFaturada" class="java.math.BigDecimal"/>
+	<field name="geracaoUnidadeConsumidora" class="java.math.BigDecimal"/>
+	<field name="valorFaturaUnidadeConsumidora" class="java.math.BigDecimal"/>
+	<field name="demonstrativoSolar.credito" class="java.math.BigDecimal"/>
+	<variable name="GeracaoKwh" class="java.math.BigDecimal"/>
+	<variable name="EnergiaFaturada" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{demonstrativoSolar.energiaRegistrada}.subtract($F{demonstrativoSolar.energiaCompensada} )]]></variableExpression>
+	</variable>
+	<variable name="totalConsumoRegistrado" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{demonstrativoSolar.energiaRegistrada}]]></variableExpression>
+	</variable>
+	<variable name="totalEnergiaInjetada" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{demonstrativoSolar.energiaInjetada}]]></variableExpression>
+	</variable>
+	<variable name="totalConsumoInstantaneo" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{geracaoUnidadeConsumidora}.signum() == 0 ? $F{geracaoUnidadeConsumidora}:$F{geracaoUnidadeConsumidora}.subtract($F{demonstrativoSolar.energiaInjetada})]]></variableExpression>
+	</variable>
+	<variable name="totalEnergiaCompensada" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{demonstrativoSolar.energiaCompensada}]]></variableExpression>
+	</variable>
+	<variable name="totalEnergiaFaturada" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{demonstrativoSolar.energiaFaturada}]]></variableExpression>
+	</variable>
+	<variable name="TotalFatura" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorFaturaUnidadeConsumidora}]]></variableExpression>
+	</variable>
+	<variable name="totalCredito" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{demonstrativoSolar.credito}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -245,7 +289,7 @@
 				<textElement textAlignment="Left">
 					<font fontName="TaldiReportFont" size="10" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{Classificacao}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{Classificacao}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<image scaleImage="RetainShape" hAlign="Right" vAlign="Middle" onErrorType="Icon">
 				<reportElement x="225" y="78" width="42" height="32" uuid="12101119-8579-44dd-9155-75f19a9aff0f">
@@ -271,9 +315,9 @@
 				<textElement textAlignment="Left" verticalAlignment="Top">
 					<font fontName="TaldiReportFont" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["SÍTIO OLHO D'ÁGUA DO MATO, ZONA RURAL"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{LogradouroBairro}.toUpperCase()]]></textFieldExpression>
 			</textField>
-			<staticText>
+			<textField>
 				<reportElement mode="Transparent" x="2" y="145" width="274" height="14" backcolor="#E0E0E0" uuid="10a5f96c-e204-4ca5-84eb-4db387b511e7">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -281,9 +325,9 @@
 				<textElement textAlignment="Left">
 					<font fontName="TaldiReportFont"/>
 				</textElement>
-				<text><![CDATA[CEP - 59.650-000 - ASSU - RN]]></text>
-			</staticText>
-			<staticText>
+				<textFieldExpression><![CDATA[$P{CepCidade}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField>
 				<reportElement mode="Transparent" x="2" y="159" width="274" height="14" backcolor="#E0E0E0" uuid="0c4d4635-2351-4495-b6ed-3aab3c14ca5b">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -291,8 +335,8 @@
 				<textElement textAlignment="Left">
 					<font fontName="TaldiReportFont"/>
 				</textElement>
-				<text><![CDATA[GEORGE@AGUAAMANA.COM.BR]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$P{Email}.toUpperCase()]]></textFieldExpression>
+			</textField>
 			<staticText>
 				<reportElement positionType="Float" x="284" y="1" width="131" height="14" forecolor="#000000" backcolor="#5287BC" uuid="c987d422-1ebd-4454-a29c-4180568e8774">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -333,7 +377,7 @@
 				</textElement>
 				<text><![CDATA[CONSUMO (KWH)]]></text>
 			</staticText>
-			<staticText>
+			<textField evaluationTime="Report" pattern="#,##0.00###">
 				<reportElement x="284" y="73" width="131" height="42" forecolor="#000000" uuid="5503dadd-5b75-4d2b-9954-f3a070762055">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -341,8 +385,8 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="18" isBold="true"/>
 				</textElement>
-				<text><![CDATA[25.849,87]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$V{totalConsumoRegistrado}.add($V{totalConsumoInstantaneo} ).setScale( 2, java.math.BigDecimal.ROUND_HALF_EVEN )]]></textFieldExpression>
+			</textField>
 			<staticText>
 				<reportElement x="284" y="118" width="131" height="14" forecolor="#000000" uuid="682426f0-637a-4dc1-b0f0-d4a1c57fb9ef">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -358,15 +402,25 @@
 				</textElement>
 				<text><![CDATA[GERAÇÃO (KWH)]]></text>
 			</staticText>
-			<staticText>
+			<textField pattern="MMM/yyyy">
+				<reportElement x="284" y="15" width="131" height="42" forecolor="#000000" uuid="4864070e-33dd-45ee-affc-b4dbe36d43a4">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Mes}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" pattern="#,##0.00###">
 				<reportElement x="284" y="131" width="131" height="42" forecolor="#000000" uuid="7873dc87-9b6f-40ca-a9da-a67c09a13b5a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="18" isBold="true"/>
 				</textElement>
-				<text><![CDATA[23.162,31]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$V{GeracaoKwh}.setScale( 2, java.math.BigDecimal.ROUND_HALF_EVEN )]]></textFieldExpression>
+			</textField>
 			<staticText>
 				<reportElement x="423" y="118" width="131" height="14" forecolor="#0066A9" uuid="38f6a1ec-32f7-43c1-8978-b8547ca79dde"/>
 				<box>
@@ -378,9 +432,9 @@
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="TaldiReportFont" size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[EFICIÊNCIA]]></text>
+				<text><![CDATA[RENDIMENTO (%)]]></text>
 			</staticText>
-			<staticText>
+			<textField evaluationTime="Report" pattern="#,##0.###">
 				<reportElement x="423" y="131" width="131" height="42" forecolor="#0066A9" uuid="25d4e13c-65a9-4746-b907-49a59b2f6b5b">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -388,8 +442,8 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="18" isBold="true"/>
 				</textElement>
-				<text><![CDATA[106,75%]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$V{GeracaoKwh}.divide( $P{NumeroDias}.multiply($P{Prognostico}.divide(new java.math.BigDecimal("365.00"),4, RoundingMode.HALF_UP)),4, RoundingMode.HALF_UP).multiply(new java.math.BigDecimal("100.00"))]]></textFieldExpression>
+			</textField>
 			<staticText>
 				<reportElement positionType="Float" x="423" y="1" width="131" height="14" forecolor="#000000" backcolor="#5287BC" uuid="9283ab58-f339-4d68-99c0-3e1c28524284">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -405,22 +459,13 @@
 				</textElement>
 				<text><![CDATA[FATURADO (R$)]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="423" y="15" width="131" height="42" forecolor="#000000" uuid="dfe91ee0-1ece-45cf-bffc-dc7433351deb">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="TaldiReportFont" size="18" isBold="true"/>
-				</textElement>
-				<text><![CDATA[1.290,03]]></text>
-			</staticText>
-			<staticText>
+			<textField evaluationTime="Report" pattern="#,##0.00#">
 				<reportElement x="423" y="73" width="131" height="42" forecolor="#146F3D" uuid="d5c73f5e-90bc-4671-9954-9a3bb231476b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="18" isBold="true"/>
 				</textElement>
-				<text><![CDATA[10.815,44]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$V{totalConsumoRegistrado}.add($V{totalConsumoInstantaneo}).subtract($V{totalEnergiaFaturada}).multiply($P{Tarifa}).setScale( 2, java.math.BigDecimal.ROUND_HALF_EVEN )]]></textFieldExpression>
+			</textField>
 			<staticText>
 				<reportElement x="423" y="59" width="131" height="14" forecolor="#14723F" uuid="e659bc8f-d17e-42fe-b0fd-ea3279bacc07"/>
 				<box>
@@ -434,6 +479,17 @@
 				</textElement>
 				<text><![CDATA[ECONOMIA (R$)]]></text>
 			</staticText>
+			<textField evaluationTime="Report" pattern="#,##0.00###">
+				<reportElement x="423" y="15" width="131" height="42" forecolor="#000000" uuid="2533fe12-84e3-40fe-a480-02cfe2847891">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TotalFatura}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -592,7 +648,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Energia Injetada]]></text>
+				<text><![CDATA[Energia Injetada Cosern]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Transparent" x="212" y="25" width="67" height="40" forecolor="#000000" backcolor="#5287BC" uuid="311d3dda-142e-49c8-a98d-ad40cb9cf3ae">
@@ -799,9 +855,9 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{denominacao}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{unidadeConsumidora.denominacao}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00#;#,##0.00#-">
+			<textField pattern="#,##0.00#" isBlankWhenNull="true">
 				<reportElement x="72" y="1" width="67" height="20" uuid="f2a8ed9a-f047-466a-9cbb-21cc2406f610">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -811,9 +867,9 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["12.760,00"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{demonstrativoSolar.energiaRegistrada}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="490" y="1" width="65" height="20" uuid="ca7e862e-8b4b-4c7d-81af-1c46189e538b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -823,9 +879,9 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["0,00"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{demonstrativoSolar.credito}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00#" isBlankWhenNull="true">
 				<reportElement x="422" y="1" width="65" height="20" uuid="379aea6f-91aa-4d5b-8e66-17fa4880f30b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -835,9 +891,9 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["1.290,05"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{demonstrativoSolar.energiaFaturada}.multiply( $P{Tarifa} ).setScale( 2, java.math.BigDecimal.ROUND_HALF_EVEN )]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00#;#,##0.00#-">
+			<textField pattern="#,##0.00#;#,##0.00#-" isBlankWhenNull="true">
 				<reportElement x="142" y="1" width="67" height="20" uuid="dac38b38-f6d8-43ff-9853-75a3813cb6dd">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -847,9 +903,9 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["10.072,44"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{demonstrativoSolar.energiaInjetada}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField evaluationTime="Auto" pattern="#,##0.00#" isBlankWhenNull="true">
 				<reportElement x="212" y="1" width="67" height="20" uuid="7a6b0515-c980-43cd-be54-a4000c696558">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -859,9 +915,9 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["13.089,87"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{geracaoUnidadeConsumidora}.signum() == 0 ? $F{geracaoUnidadeConsumidora}:$F{geracaoUnidadeConsumidora}.subtract($F{demonstrativoSolar.energiaInjetada}).setScale( 2, java.math.BigDecimal.ROUND_HALF_EVEN )]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00#;#,##0.00#-">
+			<textField pattern="#,##0.00#;#,##0.00#-" isBlankWhenNull="true">
 				<reportElement x="282" y="1" width="67" height="20" uuid="c6bdc0f6-6fed-4ce6-b60a-95b78b144b6e">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -871,9 +927,9 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["10.072,44"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{demonstrativoSolar.energiaCompensada}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00#" isBlankWhenNull="true">
 				<reportElement x="352" y="1" width="67" height="20" uuid="3e58c185-929f-43ce-aa35-9a64e315378a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -883,7 +939,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["2.754,75"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{demonstrativoSolar.energiaFaturada}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -891,7 +947,7 @@
 		<band height="307" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<rectangle radius="4">
-				<reportElement mode="Opaque" x="282" y="28" width="273" height="20" forecolor="#FFFFFF" backcolor="#5287BC" uuid="43dd03c0-67d0-4511-94f0-8985680463ca">
+				<reportElement mode="Opaque" x="281" y="28" width="274" height="20" forecolor="#FFFFFF" backcolor="#5287BC" uuid="43dd03c0-67d0-4511-94f0-8985680463ca">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -899,7 +955,7 @@
 				</reportElement>
 			</rectangle>
 			<rectangle radius="4">
-				<reportElement mode="Opaque" x="0" y="167" width="279" height="20" forecolor="#FFFFFF" backcolor="#5287BC" uuid="c6f80eef-68ce-4349-bd4b-a5264ffedede">
+				<reportElement mode="Opaque" x="281" y="167" width="274" height="20" forecolor="#FFFFFF" backcolor="#5287BC" uuid="c6f80eef-68ce-4349-bd4b-a5264ffedede">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -907,9 +963,10 @@
 				</reportElement>
 			</rectangle>
 			<staticText>
-				<reportElement mode="Transparent" x="0" y="167" width="279" height="20" forecolor="#FFFFFF" backcolor="#5287BC" uuid="0cebbb91-b336-4576-8ab9-6e30f6c7a944">
+				<reportElement mode="Transparent" x="281" y="167" width="274" height="20" forecolor="#FFFFFF" backcolor="#5287BC" uuid="0cebbb91-b336-4576-8ab9-6e30f6c7a944">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
 					<pen lineWidth="1.0" lineColor="#000000"/>
@@ -921,7 +978,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="10" isBold="true" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[EFICIÊNCIA DA GERAÇÃO]]></text>
+				<text><![CDATA[RENDIMENTO DA GERAÇÃO]]></text>
 			</staticText>
 			<rectangle radius="4">
 				<reportElement x="0" y="0" width="68" height="20" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="41ae19a0-5531-4023-8338-737aaef0975e">
@@ -1012,7 +1069,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="4">
-				<reportElement mode="Opaque" x="0" y="28" width="280" height="20" forecolor="#FFFFFF" backcolor="#5287BC" uuid="8ff04867-a8f7-41cd-86bd-3552c2afabf4">
+				<reportElement mode="Opaque" x="0" y="28" width="279" height="20" forecolor="#FFFFFF" backcolor="#5287BC" uuid="8ff04867-a8f7-41cd-86bd-3552c2afabf4">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -1020,7 +1077,7 @@
 				</reportElement>
 			</rectangle>
 			<staticText>
-				<reportElement mode="Transparent" x="0" y="28" width="280" height="20" forecolor="#FFFFFF" backcolor="#5287BC" uuid="fb37dac4-ee3d-493d-a233-eff61b2d2179">
+				<reportElement mode="Transparent" x="283" y="28" width="272" height="20" forecolor="#FFFFFF" backcolor="#5287BC" uuid="fb37dac4-ee3d-493d-a233-eff61b2d2179">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -1035,10 +1092,10 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="10" isBold="true" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[CONSUMO UNIDADES CONSUMIDORAS]]></text>
+				<text><![CDATA[CONSUMO POR UNIDADE CONSUMIDORA [KWH]]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="282" y="28" width="273" height="20" forecolor="#FFFFFF" backcolor="#5287BC" uuid="0f0b4523-c1cd-4b9d-88d6-858ed585f441">
+				<reportElement mode="Transparent" x="0" y="28" width="279" height="20" forecolor="#FFFFFF" backcolor="#5287BC" uuid="0f0b4523-c1cd-4b9d-88d6-858ed585f441">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -1077,7 +1134,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["12.760,00"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{totalConsumoRegistrado}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00#;#,##0.00#-">
 				<reportElement x="142" y="0" width="67" height="20" uuid="f6d6110e-6a6d-4653-be5e-a4321c89313b">
@@ -1089,9 +1146,9 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["10.072,44"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{totalEnergiaInjetada}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00#">
 				<reportElement x="212" y="0" width="67" height="20" uuid="f28d99fa-d108-4b50-9473-278b7fc3914e">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -1101,7 +1158,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["13.089,87"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{totalConsumoInstantaneo}.setScale( 2, java.math.BigDecimal.ROUND_HALF_EVEN )]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00#;#,##0.00#-">
 				<reportElement x="282" y="0" width="67" height="20" uuid="4dcedaf2-3dc6-4d7a-89d3-10423c7263a0">
@@ -1113,9 +1170,9 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["10.072,44"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{totalEnergiaCompensada}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00#">
 				<reportElement x="352" y="0" width="67" height="20" uuid="219a2673-998a-4368-82ec-232d0452367c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -1125,10 +1182,10 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["2.754,75"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{totalEnergiaFaturada}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="422" y="0" width="65" height="20" uuid="026f89f6-843e-45e7-b234-a9d05d6d1516">
+			<textField pattern="#,##0.00#">
+				<reportElement positionType="Float" x="422" y="0" width="65" height="20" uuid="026f89f6-843e-45e7-b234-a9d05d6d1516">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -1137,44 +1194,129 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["1.290,05"]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="490" y="0" width="65" height="20" uuid="09c27c5f-3f15-4f97-9c02-069631b3335c">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="TaldiReportFont" size="8" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA["0,00"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{totalEnergiaFaturada}.multiply($P{Tarifa}).setScale( 2, java.math.BigDecimal.ROUND_HALF_EVEN )]]></textFieldExpression>
 			</textField>
 			<subreport>
-				<reportElement x="282" y="48" width="273" height="259" uuid="4d71950d-aa10-4f31-9e17-b771f742466b">
+				<reportElement x="-6" y="48" width="285" height="259" uuid="4d71950d-aa10-4f31-9e17-b771f742466b">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
+				<subreportParameter name="IdUsuario">
+					<subreportParameterExpression><![CDATA[$P{IdUsuario}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Mes">
+					<subreportParameterExpression><![CDATA[$P{Mes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Prognostico">
+					<subreportParameterExpression><![CDATA[$P{Prognostico}]]></subreportParameterExpression>
+				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="GeracaoKwh" toVariable="GeracaoKwh"/>
 				<subreportExpression><![CDATA[$P{JasperGeracaoDiariaReportLocation}]]></subreportExpression>
 			</subreport>
-			<subreport>
-				<reportElement x="0" y="48" width="280" height="119" uuid="ca540b8f-ca3b-45fc-872d-98ccc54e8d18">
+			<xyBarChart>
+				<chart isShowLegend="true" evaluationTime="Master">
+					<reportElement x="281" y="190" width="274" height="117" uuid="5f096bab-cdd7-4323-b90e-7d03f27b8d14">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend textColor="#000000" backgroundColor="#FFFFFF" position="Bottom">
+						<font fontName="TaldiReportFont" size="8" isBold="false"/>
+					</chartLegend>
+				</chart>
+				<xyDataset>
+					<dataset incrementType="Report"/>
+					<xySeries>
+						<seriesExpression><![CDATA["Geração Contratada [kWh]"]]></seriesExpression>
+						<xValueExpression><![CDATA[0]]></xValueExpression>
+						<yValueExpression><![CDATA[$P{NumeroDias}.multiply($P{Prognostico}.divide(new java.math.BigDecimal("365.00"),4, RoundingMode.HALF_UP)).setScale(2, java.math.BigDecimal.ROUND_HALF_EVEN )]]></yValueExpression>
+					</xySeries>
+					<xySeries autoSort="true">
+						<seriesExpression><![CDATA["Geração Atual [kWh]"]]></seriesExpression>
+						<xValueExpression><![CDATA[1.5]]></xValueExpression>
+						<yValueExpression><![CDATA[$P{GeracaoAtual}]]></yValueExpression>
+					</xySeries>
+				</xyDataset>
+				<barPlot isShowLabels="true" isShowTickLabels="false" isShowTickMarks="false">
+					<plot backgroundAlpha="1.0">
+						<seriesColor seriesOrder="0" color="#FF6663"/>
+						<seriesColor seriesOrder="1" color="#B0B0B0"/>
+					</plot>
+					<itemLabel color="#000000">
+						<font fontName="TaldiReportFont" size="8" isBold="false"/>
+					</itemLabel>
+					<categoryAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#FFFFFF" axisLineColor="#000000">
+							<labelFont>
+								<font size="0"/>
+							</labelFont>
+							<tickLabelFont>
+								<font size="0"/>
+							</tickLabelFont>
+						</axisFormat>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat labelColor="#FFFFFF" tickLabelColor="#000000" axisLineColor="#000000">
+							<labelFont>
+								<font size="0"/>
+							</labelFont>
+							<tickLabelFont>
+								<font fontName="TaldiReportFont" size="8"/>
+							</tickLabelFont>
+						</axisFormat>
+					</valueAxisFormat>
+					<rangeAxisMinValueExpression><![CDATA[0]]></rangeAxisMinValueExpression>
+					<rangeAxisMaxValueExpression><![CDATA[30000]]></rangeAxisMaxValueExpression>
+				</barPlot>
+			</xyBarChart>
+			<bar3DChart>
+				<chart isShowLegend="false" evaluationTime="Report">
+					<reportElement x="281" y="51" width="274" height="116" uuid="73bed06c-aa2b-4bdc-a7dc-9ec3a6a50a6a">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["SERIES 1"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{unidadeConsumidora.denominacao}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{geracaoUnidadeConsumidora}.signum() == 0 ? $F{demonstrativoSolar.energiaRegistrada} :$F{geracaoUnidadeConsumidora}.subtract($F{demonstrativoSolar.energiaInjetada}).add($F{demonstrativoSolar.energiaRegistrada}).setScale( 2, java.math.BigDecimal.ROUND_HALF_EVEN )]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot isShowLabels="true">
+					<plot>
+						<seriesColor seriesOrder="0" color="#5287BC"/>
+					</plot>
+					<itemLabel color="#FFFFFF">
+						<font fontName="TaldiReportFont" size="8" isBold="true"/>
+					</itemLabel>
+					<categoryAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</valueAxisFormat>
+				</bar3DPlot>
+			</bar3DChart>
+			<textField pattern="#,##0.00#">
+				<reportElement x="490" y="0" width="65" height="20" uuid="25f7919a-06aa-41d1-9132-68bed274e0c7">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{JasperConsumoUconsumidorasReportLocation}]]></subreportExpression>
-			</subreport>
-			<subreport>
-				<reportElement x="0" y="187" width="280" height="120" uuid="ef326de9-37cb-4945-9536-2eafb809052b">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-			</subreport>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalCredito}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnFooter>
 	<pageFooter>
@@ -1319,10 +1461,10 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Ciclo]]></text>
+				<text><![CDATA[Início do Ciclo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="69" y="24" width="67" height="40" forecolor="#000000" backcolor="#5287BC" uuid="45ce83f2-993e-48aa-8b94-5032a85e6fd4">
+				<reportElement mode="Transparent" x="74" y="24" width="56" height="40" forecolor="#000000" backcolor="#5287BC" uuid="45ce83f2-993e-48aa-8b94-5032a85e6fd4">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -1337,7 +1479,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Geração (R$)]]></text>
+				<text><![CDATA[Fim do Ciclo]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Transparent" x="139" y="24" width="67" height="40" forecolor="#000000" backcolor="#5287BC" uuid="5ba25ea9-3514-4b32-9b0f-96adbb18364a">
@@ -1358,7 +1500,7 @@
 				<text><![CDATA[Consumo (R$)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="209" y="24" width="67" height="40" forecolor="#000000" backcolor="#5287BC" uuid="338a9392-b29f-454f-841a-e59ef85722db">
+				<reportElement mode="Transparent" x="214" y="24" width="56" height="40" forecolor="#000000" backcolor="#5287BC" uuid="338a9392-b29f-454f-841a-e59ef85722db">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -1376,7 +1518,7 @@
 				<text><![CDATA[Faturado (R$)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="279" y="24" width="67" height="40" forecolor="#000000" backcolor="#5287BC" uuid="8279b4bc-5d81-4092-9cfe-017dd529d843">
+				<reportElement mode="Transparent" x="284" y="24" width="57" height="40" forecolor="#000000" backcolor="#5287BC" uuid="8279b4bc-5d81-4092-9cfe-017dd529d843">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -1394,7 +1536,7 @@
 				<text><![CDATA[Economia (R$)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="349" y="24" width="67" height="40" forecolor="#000000" backcolor="#5287BC" uuid="a547ba33-c314-40de-9271-6ef728bda2cf">
+				<reportElement mode="Transparent" x="354" y="24" width="57" height="40" forecolor="#000000" backcolor="#5287BC" uuid="a547ba33-c314-40de-9271-6ef728bda2cf">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -1412,7 +1554,7 @@
 				<text><![CDATA[Economia (%)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="419" y="24" width="67" height="40" forecolor="#000000" backcolor="#5287BC" uuid="914ddd99-7b13-4603-8fbe-515f6b10eb5e">
+				<reportElement mode="Transparent" x="424" y="24" width="57" height="40" forecolor="#000000" backcolor="#5287BC" uuid="914ddd99-7b13-4603-8fbe-515f6b10eb5e">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -1427,7 +1569,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Crédito]]></text>
+				<text><![CDATA[Crédito (kWh)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Transparent" x="490" y="24" width="64" height="40" forecolor="#000000" backcolor="#5287BC" uuid="9930f1fb-8a16-4088-8d47-af4aaea593a4">
@@ -1482,7 +1624,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="4">
-				<reportElement x="209" y="69" width="67" height="20" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="b34d0796-c0fc-450b-a114-bdffc8834d3d">
+				<reportElement x="209" y="70" width="67" height="20" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="b34d0796-c0fc-450b-a114-bdffc8834d3d">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -1536,6 +1678,90 @@
 					<pen lineWidth="1.0" lineColor="#FFFFFF"/>
 				</graphicElement>
 			</rectangle>
+			<textField pattern="#,##0.00#">
+				<reportElement x="209" y="69" width="67" height="20" uuid="3f18cac6-6068-4203-8b3f-d996251da30e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TotalFatura}]]></textFieldExpression>
+			</textField>
+			<textField pattern="d MMM, yyyy">
+				<reportElement x="0" y="69" width="67" height="20" uuid="469e308d-ce80-4b51-9c48-72ba54b6b9b1">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CicloInicio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="d MMM, yyyy">
+				<reportElement x="69" y="69" width="67" height="20" uuid="859dd3e8-6469-4683-b35e-796629680b43">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CicloFim}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#">
+				<reportElement x="139" y="69" width="67" height="20" uuid="84a62f9e-3256-496e-9229-74b4eb76eb23">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalConsumoRegistrado}.add($V{totalConsumoInstantaneo} ).multiply($P{Tarifa}).add($V{TotalFatura}.subtract($V{totalEnergiaFaturada}.multiply($P{Tarifa}))).setScale( 2, java.math.BigDecimal.ROUND_HALF_EVEN )]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#">
+				<reportElement x="279" y="69" width="67" height="20" uuid="665657c6-828d-4a66-bedf-44ed69827649">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalConsumoRegistrado}.add($V{totalConsumoInstantaneo}).subtract($V{totalEnergiaFaturada}).multiply($P{Tarifa}).setScale( 2, java.math.BigDecimal.ROUND_HALF_EVEN )]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#">
+				<reportElement x="349" y="69" width="67" height="20" uuid="6b6691aa-bbc6-4e91-a46b-e60dc9f54e6d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalConsumoRegistrado}.add($V{totalConsumoInstantaneo}).subtract($V{totalEnergiaFaturada}).divide($V{totalConsumoRegistrado}.add($V{totalConsumoInstantaneo}), 4, RoundingMode.HALF_UP).multiply(new java.math.BigDecimal(100))]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="419" y="69" width="67" height="20" uuid="8456fdc9-4001-44df-880e-924b90ae0ee8">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalCredito}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="490" y="69" width="65" height="20" uuid="0dd10b43-d3ed-47c1-a822-77393e1b57e4">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalCredito}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 	<summary>
