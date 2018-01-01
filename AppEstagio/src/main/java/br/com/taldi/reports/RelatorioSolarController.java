@@ -47,13 +47,13 @@ public class RelatorioSolarController {
 	@RequestMapping(path = "/pdf/{id}", method = RequestMethod.GET)
     public ModelAndView report(@PathVariable("id") long id, @RequestParam(value="mes", required=true) @DateTimeFormat(pattern="yyyy-MM-dd") Date mes) {
     	JasperReportsPdfView view = new JasperReportsPdfView();
-    	view.setUrl("classpath:jasperreports/reports/solar.jrxml");
+    	view.setUrl("classpath:jasperreports/reports/solar.jasper");
     	view.setApplicationContext(appContext);
         
     	Map<String, Object> params = new HashMap<>();
     	params.put("IdUsuario", id);
         params.put("Mes", mes);
-        params.put("Tarifa", new BigDecimal("0.4682998"));
+        params.put("Tarifa", new BigDecimal("0.38627062"));
         params.put("Prognostico", new BigDecimal("179999.15"));
         params.put("LogoPath", Paths.get(armazenamentoProperties.getLocation()).toString() + "/usuarios/" + Long.toString(id) + "/logo/logo.png");
         List<DemonstrativoSolarDTO> datasource = new ArrayList<DemonstrativoSolarDTO>();
@@ -78,7 +78,6 @@ public class RelatorioSolarController {
 					 new LocalDate(datasource.get(0).getDemonstrativoSolar().getCicloInicio().getTime()), 
     				 new LocalDate(datasource.get(0).getDemonstrativoSolar().getCicloFim().getTime())).getDays()).add(new BigDecimal("1"));
             params.put("NumeroDias", diasCiclo);
-            params.put("GeracaoAtual", new BigDecimal("23162.31"));
         }
         params.put("datasource", datasource);
         params.put("JasperGeracaoDiariaReportLocation", "classpath:jasperreports/reports/geracao_solar_mensal.jasper");
