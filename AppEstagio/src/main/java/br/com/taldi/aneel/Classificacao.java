@@ -1,9 +1,13 @@
 package br.com.taldi.aneel;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -19,7 +23,9 @@ public class Classificacao {
 	private String classe;
 	private String subclasse;
 	private String modalidade;
-
+	@OneToMany(mappedBy="classificacao", fetch = FetchType.LAZY)
+	private List<Tarifa> tarifas;
+	
 	public long getId() {
 		return id;
 	}
@@ -76,6 +82,9 @@ public class Classificacao {
 			classificacao = classificacao + classe + " ";
 		if(subclasse != null)
 			classificacao = classificacao + subclasse;
+		if(classificacao.charAt(classificacao.length()-1) == ' ')
+			classificacao = classificacao.substring(0, classificacao.length()-1);
+			
 		return classificacao;
 	}
 }

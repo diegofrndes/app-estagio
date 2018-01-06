@@ -1,10 +1,9 @@
-package br.com.taldi.usina;
+package br.com.taldi.aneel;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,25 +16,26 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureTestDatabase(replace=Replace.NONE)	
-public class DemonstrativoSolarRepositoryTest {
+public class TarifaRepositoryTest {
 	
 	@Autowired
-	private DemonstrativoSolarRepository demonstrativoSolarRepository;
-	
+	private TarifaRepository tarifaRepository;
+
 	@Test
-	public void findUnidadesConsumidorasComUsinas() {
-		String testDate = "31-10-2017";
+	public void findTarifaByClassificacao() {
+		String testDate = "31-03-2017";
 		DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-		Date date = new Date();
+		Date data = new Date();
 		try {
-			date = formatter.parse(testDate);
+			data = formatter.parse(testDate);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(date.toString()); 
-		List<DemonstrativoSolarDTO> ucs = demonstrativoSolarRepository.findDemonstrativoSolarDTOSByUsuarioAndMesAno(new Long(3), date);
-		//System.out.println(ucs.get(0).getDenominacao());
-		assert(!ucs.isEmpty());
-	}
+		System.out.println(data.toString()); 
+		Tarifa tarifa = tarifaRepository.findByClassificacaoIdAndFimVigencia((long) 5, data);
+		System.out.println(tarifa.getValor());
+		assert(!tarifa.equals(null));
+	}	
+	
 }

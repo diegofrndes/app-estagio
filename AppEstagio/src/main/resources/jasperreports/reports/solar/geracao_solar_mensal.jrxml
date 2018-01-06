@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="grafico_geracao" pageWidth="555" pageHeight="259" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e57210ad-243c-4934-9af6-071c6cd79543">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Taldi DB"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="IdUsuario" class="java.lang.Long"/>
+	<parameter name="Mes" class="java.util.Date"/>
+	<parameter name="Prognostico" class="java.math.BigDecimal"/>
+	<parameter name="NumeroDias" class="java.math.BigDecimal"/>
+	<queryString>
+		<![CDATA[SELECT geracao_solar.quantidade, geracao_solar.data FROM unidade_consumidora
+INNER JOIN usina_solar ON usina_solar.id_unidade_consumidora = unidade_consumidora.id
+INNER JOIN fatura ON fatura.id_unidade_consumidora = unidade_consumidora.id AND fatura.mes_ano = $P{Mes}
+INNER JOIN demonstrativo_solar ON demonstrativo_solar.id_fatura = fatura.id
+INNER JOIN geracao_solar ON geracao_solar.id_usina_solar = usina_solar.id AND geracao_solar.data >= demonstrativo_solar.ciclo_inicio AND geracao_solar.data <= demonstrativo_solar.ciclo_fim
+WHERE unidade_consumidora.id_usuario = $P{IdUsuario} GROUP BY geracao_solar.data]]>
+	</queryString>
+	<field name="quantidade" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="quantidade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="geracao_solar"/>
+	</field>
+	<field name="data" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="data"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="geracao_solar"/>
+	</field>
+	<variable name="Max" class="java.math.BigDecimal" calculation="Highest">
+		<variableExpression><![CDATA[$F{quantidade}]]></variableExpression>
+		<initialValueExpression><![CDATA[new java.math.BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="GeracaoKwh" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{quantidade}]]></variableExpression>
+	</variable>
+	<variable name="GeracaoContratadaCiclo" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$P{NumeroDias}.multiply($P{Prognostico}.divide(new java.math.BigDecimal("365.00"),4, RoundingMode.HALF_UP)).setScale(2, java.math.BigDecimal.ROUND_HALF_EVEN )]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="259">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<barChart>
+				<chart isShowLegend="false" evaluationTime="Report">
+					<reportElement x="-6" y="0" width="284" height="259" uuid="08cc7342-f6ea-468b-b18e-984062808aec">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["SERIES 1"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{data}.toLocaleString().substring(0,10)]]></categoryExpression>
+						<valueExpression><![CDATA[$F{quantidade}]]></valueExpression>
+						<labelExpression><![CDATA[$F{quantidade}.toString()]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot isShowLabels="true">
+					<plot orientation="Horizontal">
+						<seriesColor seriesOrder="0" color="#B0B0B0"/>
+					</plot>
+					<itemLabel>
+						<font fontName="TaldiReportFont" size="6" isBold="true"/>
+					</itemLabel>
+					<categoryAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000">
+							<tickLabelFont>
+								<font fontName="TaldiReportFont" size="6" isBold="false"/>
+							</tickLabelFont>
+						</axisFormat>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000">
+							<tickLabelFont>
+								<font fontName="TaldiReportFont" size="6" isBold="false"/>
+							</tickLabelFont>
+						</axisFormat>
+					</valueAxisFormat>
+					<rangeAxisMinValueExpression><![CDATA[0]]></rangeAxisMinValueExpression>
+					<rangeAxisMaxValueExpression><![CDATA[$V{Max}.intValue() + 100]]></rangeAxisMaxValueExpression>
+				</barPlot>
+			</barChart>
+			<lineChart>
+				<chart isShowLegend="false" evaluationTime="Report">
+					<reportElement x="-6" y="0" width="284" height="259" uuid="3b037ffd-09da-415a-b673-16710b4391f8">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["SERIES 1"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{data}.toLocaleString().substring(0,10)]]></categoryExpression>
+						<valueExpression><![CDATA[$P{Prognostico}.divide(new java.math.BigDecimal("365.00"), 27, RoundingMode.HALF_UP)]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<linePlot isShowShapes="false">
+					<plot orientation="Horizontal">
+						<seriesColor seriesOrder="0" color="#FF6663"/>
+					</plot>
+					<categoryAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="rgba(0, 0, 0, 0.0)" axisLineColor="#000000">
+							<labelFont>
+								<font fontName="TaldiReportFont" size="6"/>
+							</labelFont>
+							<tickLabelFont>
+								<font fontName="TaldiReportFont" size="6"/>
+							</tickLabelFont>
+						</axisFormat>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="rgba(0, 0, 0, 0.0)" axisLineColor="#000000">
+							<labelFont>
+								<font fontName="TaldiReportFont" size="6"/>
+							</labelFont>
+							<tickLabelFont>
+								<font fontName="TaldiReportFont" size="6"/>
+							</tickLabelFont>
+						</axisFormat>
+					</valueAxisFormat>
+					<rangeAxisMinValueExpression><![CDATA[0]]></rangeAxisMinValueExpression>
+					<rangeAxisMaxValueExpression><![CDATA[$V{Max}.intValue() + 100]]></rangeAxisMaxValueExpression>
+				</linePlot>
+			</lineChart>
+			<staticText>
+				<reportElement x="156" y="246" width="65" height="13" uuid="159bca1f-c717-4bd2-b98c-7e370384bc7b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Geração Diária]]></text>
+			</staticText>
+			<rectangle radius="4">
+				<reportElement x="148" y="249" width="7" height="7" forecolor="#FF5555" backcolor="#B0B0B0" uuid="3905e832-6b58-4e0b-b21f-5fbd5f8c5681">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="83" y="246" width="64" height="13" uuid="fd51ef0f-1b44-4a00-9088-d3513368d5ee">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TaldiReportFont" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Geração Contratada]]></text>
+			</staticText>
+			<rectangle radius="4">
+				<reportElement x="75" y="249" width="7" height="7" forecolor="#B0B0B0" backcolor="#FF6663" uuid="ca4ad13d-ac16-464a-8b26-a97bc73c1698">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<xyBarChart>
+				<chart isShowLegend="true" evaluationTime="Page">
+					<reportElement x="281" y="142" width="274" height="117" uuid="2f4c810c-9003-4905-86bc-228985cab186">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend textColor="#000000" backgroundColor="#FFFFFF" position="Bottom">
+						<font fontName="TaldiReportFont" size="8" isBold="false"/>
+					</chartLegend>
+				</chart>
+				<xyDataset>
+					<dataset incrementType="Report"/>
+					<xySeries>
+						<seriesExpression><![CDATA["Geração Contratada"]]></seriesExpression>
+						<xValueExpression><![CDATA[0]]></xValueExpression>
+						<yValueExpression><![CDATA[$V{GeracaoContratadaCiclo}]]></yValueExpression>
+					</xySeries>
+					<xySeries autoSort="true">
+						<seriesExpression><![CDATA["Geração Atual"]]></seriesExpression>
+						<xValueExpression><![CDATA[1.5]]></xValueExpression>
+						<yValueExpression><![CDATA[$V{GeracaoKwh}.setScale(2, java.math.BigDecimal.ROUND_HALF_EVEN )]]></yValueExpression>
+					</xySeries>
+				</xyDataset>
+				<barPlot isShowLabels="true" isShowTickLabels="false" isShowTickMarks="false">
+					<plot backgroundAlpha="1.0">
+						<seriesColor seriesOrder="0" color="#FF6663"/>
+						<seriesColor seriesOrder="1" color="#B0B0B0"/>
+					</plot>
+					<itemLabel color="#000000">
+						<font fontName="TaldiReportFont" size="8" isBold="false"/>
+					</itemLabel>
+					<categoryAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#FFFFFF" axisLineColor="#000000">
+							<labelFont>
+								<font size="0"/>
+							</labelFont>
+							<tickLabelFont>
+								<font size="0"/>
+							</tickLabelFont>
+						</axisFormat>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat labelColor="#FFFFFF" tickLabelColor="#000000" axisLineColor="#000000">
+							<labelFont>
+								<font size="0"/>
+							</labelFont>
+							<tickLabelFont>
+								<font fontName="TaldiReportFont" size="8"/>
+							</tickLabelFont>
+						</axisFormat>
+					</valueAxisFormat>
+					<rangeAxisMinValueExpression><![CDATA[0]]></rangeAxisMinValueExpression>
+					<rangeAxisMaxValueExpression><![CDATA[($V{GeracaoKwh}.compareTo($V{GeracaoContratadaCiclo} ) == 1) ? $V{GeracaoKwh}.add( new java.math.BigDecimal (5000)):$V{GeracaoContratadaCiclo}.add( new java.math.BigDecimal (5000))]]></rangeAxisMaxValueExpression>
+				</barPlot>
+			</xyBarChart>
+		</band>
+	</pageHeader>
+</jasperReport>

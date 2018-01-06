@@ -1,6 +1,5 @@
-package br.com.taldi.reports;
+package br.com.taldi.usuario.reports;
 
-import java.math.BigDecimal;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,8 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.joda.time.Days;
-import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -34,10 +31,11 @@ import br.com.taldi.usina.DemonstrativoSolarService;
 public class RelatorioSolarController {
 	
 	@Autowired
-	DemonstrativoSolarService demonstrativoSolarService;
+	private DemonstrativoSolarService demonstrativoSolarService;
 	@Autowired
-	ArmazenamentoProperties armazenamentoProperties;
-	
+	private ArmazenamentoProperties armazenamentoProperties;
+	@Autowired 
+	private RelatorioSolarService relatorioSolarService;
 	
 	@Autowired
     private ApplicationContext appContext;
@@ -47,17 +45,16 @@ public class RelatorioSolarController {
 	@RequestMapping(path = "/pdf/{id}", method = RequestMethod.GET)
     public ModelAndView report(@PathVariable("id") long id, @RequestParam(value="mes", required=true) @DateTimeFormat(pattern="yyyy-MM-dd") Date mes) {
     	JasperReportsPdfView view = new JasperReportsPdfView();
-    	view.setUrl("classpath:jasperreports/reports/solar.jasper");
+    	view.setUrl("classpath:jasperreports/reports/solar/solar.jasper");
     	view.setApplicationContext(appContext);
         
     	Map<String, Object> params = new HashMap<>();
     	params.put("IdUsuario", id);
         params.put("Mes", mes);
-        params.put("Tarifa", new BigDecimal("0.38627062"));
-        params.put("Prognostico", new BigDecimal("179999.15"));
+        params.put("Prognostico", relatorioSolarService.getPrognosticoByUsuarioId(id));
         params.put("LogoPath", Paths.get(armazenamentoProperties.getLocation()).toString() + "/usuarios/" + Long.toString(id) + "/logo/logo.png");
         List<DemonstrativoSolarDTO> datasource = new ArrayList<DemonstrativoSolarDTO>();
-    	datasource = demonstrativoSolarService.getUCBeneficiadaSolarByUsuarioAndMesAno(id, mes);
+    	datasource = demonstrativoSolarService.getDemonstrativoSolarDTOSByUsuarioAndMesAno(id, mes);
         if(datasource != null) {
         	params.put("Nome", datasource.get(0).getUnidadeConsumidora().getUsuario().getPessoa().getNome());
     		if(datasource.get(0).getUnidadeConsumidora().getUsuario().getPessoa() instanceof PessoaFisica)
@@ -74,13 +71,11 @@ public class RelatorioSolarController {
     		params.put("Email", datasource.get(0).getUnidadeConsumidora().getUsuario().getLogin());
     		params.put("CicloInicio", datasource.get(0).getDemonstrativoSolar().getCicloInicio());
             params.put("CicloFim", datasource.get(0).getDemonstrativoSolar().getCicloFim());
-            BigDecimal diasCiclo = new BigDecimal(Days.daysBetween(
-					 new LocalDate(datasource.get(0).getDemonstrativoSolar().getCicloInicio().getTime()), 
-    				 new LocalDate(datasource.get(0).getDemonstrativoSolar().getCicloFim().getTime())).getDays()).add(new BigDecimal("1"));
-            params.put("NumeroDias", diasCiclo);
+            params.put("NumeroDias", relatorioSolarService.getNumeroDiasCiclo(datasource.get(0).getDemonstrativoSolar().getCicloInicio(), datasource.get(0).getDemonstrativoSolar().getCicloFim()));
+            params.put("CreditoAcumulado", relatorioSolarService.getCreditoAcumuladoByUsuarioId(id, mes));
         }
         params.put("datasource", datasource);
-        params.put("JasperGeracaoDiariaReportLocation", "classpath:jasperreports/reports/geracao_solar_mensal.jasper");
+        params.put("JasperGeracaoDiariaReportLocation", "classpath:jasperreports/reports/solar/geracao_solar_mensal.jasper");
         
         //params.put("DominioGrafico", dominioGrafico);
     	//if(usuario.getPessoa() instanceof PessoaFisica)

@@ -1,5 +1,6 @@
 package br.com.taldi.usina;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -13,5 +14,12 @@ public interface DemonstrativoSolarRepository extends CrudRepository<Demonstrati
 			+ "INNER JOIN d.fatura f "
 			+ "INNER JOIN f.unidadeConsumidora uc "
 			+ "WHERE f.mesAno = :mesAno AND uc.usuario.id = :idUsuario")
-	public List<DemonstrativoSolarDTO> findUCBeneficiadaSolarByUsuarioAndMesAno(@Param("idUsuario") Long idUsuario,@Param("mesAno") Date mesAno);
+	public List<DemonstrativoSolarDTO> findDemonstrativoSolarDTOSByUsuarioAndMesAno(@Param("idUsuario") Long idUsuario,@Param("mesAno") Date mesAno);
+	
+	@Query("SELECT SUM(d.credito) FROM DemonstrativoSolar d "
+			+ "INNER JOIN d.fatura f "
+			+ "INNER JOIN f.unidadeConsumidora uc "
+			+ "WHERE f.mesAno <= :mesAno AND uc.usuario.id = :idUsuario")
+	public BigDecimal getSumCreditoByUsuario(@Param("idUsuario") Long idUsuario, @Param("mesAno") Date mesAno);
+	
 }

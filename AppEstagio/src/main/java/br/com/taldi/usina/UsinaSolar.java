@@ -1,8 +1,10 @@
 package br.com.taldi.usina;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.com.taldi.uconsumidora.UnidadeConsumidora;
 
@@ -24,6 +28,12 @@ public class UsinaSolar {
 	private UnidadeConsumidora unidadeConsumidora;
 	
 	private BigDecimal potencia;
+	private BigDecimal energiaAno;
+	
+	@Column(nullable = false)
+	@Temporal(TemporalType.DATE)
+	private Date vigencia;
+
 
 	public long getId() {
 		return id;
@@ -47,6 +57,14 @@ public class UsinaSolar {
 
 	public void setPotencia(BigDecimal potencia) {
 		this.potencia = potencia;
+	}
+
+	public BigDecimal getEnergiaAno() {
+		return energiaAno;
+	}
+
+	public void setEnergiaAno(BigDecimal energiaAno) {
+		this.energiaAno = energiaAno;
 	}
 	
 }

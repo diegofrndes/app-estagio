@@ -1,27 +1,11 @@
 package br.com.taldi;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 
-import br.com.taldi.aneel.Consumo;
-import br.com.taldi.aneel.Outro;
 import br.com.taldi.armazenamento.ArmazenamentoProperties;
-import br.com.taldi.armazenamento.ArmazenamentoService;
-import br.com.taldi.uconsumidora.Fatura;
-import br.com.taldi.uconsumidora.FaturaConsumo;
-import br.com.taldi.uconsumidora.FaturaOutro;
-import br.com.taldi.uconsumidora.FaturaRepository;
-import br.com.taldi.uconsumidora.UnidadeConsumidora;
+
 
 @SpringBootApplication
 @EnableConfigurationProperties(ArmazenamentoProperties.class)
@@ -30,7 +14,8 @@ public class AppEstagio {
 	public static void main(String[] args) {
 		SpringApplication.run(AppEstagio.class, args);
 	}
-
+	
+	/*
 	@Bean
 	CommandLineRunner init(ArmazenamentoService armazenamentoService, FaturaRepository repository) {
 		return (args) -> {
@@ -134,10 +119,8 @@ public class AppEstagio {
 			outubro.setMesAno(mesOutubro);
 			novembro.setMesAno(mesNovembro);
 			novembro.setDataVencimento(vencimentoNovembro);
-			//repository.save(outubro);
-			//repository.save(novembro);
-			//armazenamentoService.deleteAll();
-			//armazenamentoService.init();
+			
 		};
 	}
+	*/
 }

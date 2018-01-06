@@ -49,7 +49,6 @@
 	<parameter name="LogradouroBairro" class="java.lang.String"/>
 	<parameter name="CepCidade" class="java.lang.String"/>
 	<parameter name="Email" class="java.lang.String"/>
-	<parameter name="Tarifa" class="java.math.BigDecimal"/>
 	<parameter name="ExpectativaGeracao" class="java.math.BigDecimal"/>
 	<parameter name="GraficoDominio" class="java.util.List"/>
 	<parameter name="JasperEficienciaReportLocation" class="java.lang.String"/>
@@ -58,6 +57,7 @@
 	<parameter name="CicloFim" class="java.util.Date"/>
 	<parameter name="Prognostico" class="java.math.BigDecimal"/>
 	<parameter name="NumeroDias" class="java.math.BigDecimal"/>
+	<parameter name="CreditoAcumulado" class="java.math.BigDecimal"/>
 	<field name="unidadeConsumidora.denominacao" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="denominacao"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="unidade_consumidora"/>
@@ -66,13 +66,13 @@
 	<field name="demonstrativoSolar.energiaInjetada" class="java.math.BigDecimal"/>
 	<field name="demonstrativoSolar.energiaCompensada" class="java.math.BigDecimal"/>
 	<field name="demonstrativoSolar.energiaFaturada" class="java.math.BigDecimal"/>
-	<field name="geracaoUnidadeConsumidora" class="java.math.BigDecimal"/>
+	<field name="geracaoUnidadeConsumidoraKWH" class="java.math.BigDecimal"/>
 	<field name="valorFaturaUnidadeConsumidora" class="java.math.BigDecimal"/>
 	<field name="demonstrativoSolar.credito" class="java.math.BigDecimal"/>
+	<field name="consumoInstantaneoUnidadeConsumidoraKWH" class="java.math.BigDecimal"/>
+	<field name="economiaUnidadeConsumidoraRS" class="java.math.BigDecimal"/>
+	<field name="consumoUnidadeConsumidoraRS" class="java.math.BigDecimal"/>
 	<variable name="GeracaoKwh" class="java.math.BigDecimal"/>
-	<variable name="EnergiaFaturada" class="java.math.BigDecimal">
-		<variableExpression><![CDATA[$F{demonstrativoSolar.energiaRegistrada}.subtract($F{demonstrativoSolar.energiaCompensada} )]]></variableExpression>
-	</variable>
 	<variable name="totalConsumoRegistrado" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{demonstrativoSolar.energiaRegistrada}]]></variableExpression>
 	</variable>
@@ -80,15 +80,15 @@
 		<variableExpression><![CDATA[$F{demonstrativoSolar.energiaInjetada}]]></variableExpression>
 	</variable>
 	<variable name="totalConsumoInstantaneo" class="java.math.BigDecimal" calculation="Sum">
-		<variableExpression><![CDATA[$F{geracaoUnidadeConsumidora}.signum() == 0 ? $F{geracaoUnidadeConsumidora}:$F{geracaoUnidadeConsumidora}.subtract($F{demonstrativoSolar.energiaInjetada})]]></variableExpression>
+		<variableExpression><![CDATA[$F{consumoInstantaneoUnidadeConsumidoraKWH}]]></variableExpression>
 	</variable>
 	<variable name="totalEnergiaCompensada" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{demonstrativoSolar.energiaCompensada}]]></variableExpression>
 	</variable>
-	<variable name="totalEnergiaFaturada" class="java.math.BigDecimal" calculation="Sum">
-		<variableExpression><![CDATA[$F{demonstrativoSolar.energiaFaturada}]]></variableExpression>
+	<variable name="totalValorFaturado" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorFaturaUnidadeConsumidora}]]></variableExpression>
 	</variable>
-	<variable name="TotalFatura" class="java.math.BigDecimal" calculation="Sum">
+	<variable name="totalFatura" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{valorFaturaUnidadeConsumidora}]]></variableExpression>
 	</variable>
 	<variable name="totalCredito" class="java.math.BigDecimal" calculation="Sum">
@@ -96,6 +96,18 @@
 	</variable>
 	<variable name="totalConsumo" class="java.math.BigDecimal">
 		<variableExpression><![CDATA[$V{totalConsumoInstantaneo}.add($V{totalConsumoRegistrado})]]></variableExpression>
+	</variable>
+	<variable name="totalConsumoRS" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{consumoUnidadeConsumidoraRS}]]></variableExpression>
+	</variable>
+	<variable name="totalEconomiaRS" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{economiaUnidadeConsumidoraRS}]]></variableExpression>
+	</variable>
+	<variable name="totalEnergiaFaturada" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{demonstrativoSolar.energiaFaturada}]]></variableExpression>
+	</variable>
+	<variable name="totalEnergiaRegistrada" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{demonstrativoSolar.energiaRegistrada}]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -459,14 +471,14 @@
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="TaldiReportFont" size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[VALOR (R$)]]></text>
+				<text><![CDATA[FATURADO (R$)]]></text>
 			</staticText>
 			<textField evaluationTime="Report" pattern="#,##0.00#">
 				<reportElement x="423" y="73" width="131" height="42" forecolor="#146F3D" uuid="d5c73f5e-90bc-4671-9954-9a3bb231476b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="18" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{totalConsumoRegistrado}.add($V{totalConsumoInstantaneo}).subtract($V{totalEnergiaFaturada}).multiply($P{Tarifa}).setScale( 2, java.math.BigDecimal.ROUND_HALF_EVEN )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{totalEconomiaRS}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="423" y="59" width="131" height="14" forecolor="#14723F" uuid="e659bc8f-d17e-42fe-b0fd-ea3279bacc07"/>
@@ -490,7 +502,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="18" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{TotalFatura}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{totalFatura}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -722,7 +734,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Energia Faturada (R$)]]></text>
+				<text><![CDATA[Valor Faturado (R$)]]></text>
 			</staticText>
 			<rectangle radius="4">
 				<reportElement x="490" y="25" width="65" height="40" forecolor="#FFFFFF" backcolor="#CBCBCB" uuid="da1afdef-bc7c-4a4e-a7f8-77c4d4fc0bf9">
@@ -752,7 +764,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Crédito (kWh)]]></text>
+				<text><![CDATA[Crédito Gerado (kWh)]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -871,7 +883,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{demonstrativoSolar.energiaRegistrada}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0.00#" isBlankWhenNull="true">
 				<reportElement x="490" y="1" width="65" height="20" uuid="ca7e862e-8b4b-4c7d-81af-1c46189e538b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -893,7 +905,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{demonstrativoSolar.energiaFaturada}.multiply( $P{Tarifa} ).setScale( 2, java.math.BigDecimal.ROUND_HALF_EVEN )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{valorFaturaUnidadeConsumidora}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00#;#,##0.00#-" isBlankWhenNull="true">
 				<reportElement x="142" y="1" width="67" height="20" uuid="dac38b38-f6d8-43ff-9853-75a3813cb6dd">
@@ -917,7 +929,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{geracaoUnidadeConsumidora}.signum() == 0 ? $F{geracaoUnidadeConsumidora}:$F{geracaoUnidadeConsumidora}.subtract($F{demonstrativoSolar.energiaInjetada}).setScale( 2, java.math.BigDecimal.ROUND_HALF_EVEN )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{consumoInstantaneoUnidadeConsumidoraKWH}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00#;#,##0.00#-" isBlankWhenNull="true">
 				<reportElement x="282" y="1" width="67" height="20" uuid="c6bdc0f6-6fed-4ce6-b60a-95b78b144b6e">
@@ -1136,7 +1148,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{totalConsumoRegistrado}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{totalEnergiaRegistrada}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00#;#,##0.00#-">
 				<reportElement x="142" y="0" width="67" height="20" uuid="f6d6110e-6a6d-4653-be5e-a4321c89313b">
@@ -1196,7 +1208,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{totalEnergiaFaturada}.multiply($P{Tarifa}).setScale( 2, java.math.BigDecimal.ROUND_HALF_EVEN )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{totalValorFaturado}]]></textFieldExpression>
 			</textField>
 			<subreport>
 				<reportElement x="-6" y="48" width="561" height="259" uuid="4d71950d-aa10-4f31-9e17-b771f742466b">
@@ -1235,7 +1247,7 @@
 					<categorySeries>
 						<seriesExpression><![CDATA["SERIES 1"]]></seriesExpression>
 						<categoryExpression><![CDATA[$F{unidadeConsumidora.denominacao}]]></categoryExpression>
-						<valueExpression><![CDATA[$F{geracaoUnidadeConsumidora}.signum() == 0 ? $F{demonstrativoSolar.energiaRegistrada} :$F{geracaoUnidadeConsumidora}.subtract($F{demonstrativoSolar.energiaInjetada}).add($F{demonstrativoSolar.energiaRegistrada}).setScale( 2, java.math.BigDecimal.ROUND_HALF_EVEN )]]></valueExpression>
+						<valueExpression><![CDATA[$F{geracaoUnidadeConsumidoraKWH}.signum() == 0 ? $F{demonstrativoSolar.energiaRegistrada} :$F{geracaoUnidadeConsumidoraKWH}.subtract($F{demonstrativoSolar.energiaInjetada}).add($F{demonstrativoSolar.energiaRegistrada}).setScale( 2, java.math.BigDecimal.ROUND_HALF_EVEN )]]></valueExpression>
 					</categorySeries>
 				</categoryDataset>
 				<bar3DPlot isShowLabels="true">
@@ -1517,7 +1529,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Crédito (kWh)]]></text>
+				<text><![CDATA[Crédito Gerado (kWh)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Transparent" x="490" y="24" width="64" height="40" forecolor="#000000" backcolor="#5287BC" uuid="9930f1fb-8a16-4088-8d47-af4aaea593a4">
@@ -1536,7 +1548,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Crédito Acumulado]]></text>
+				<text><![CDATA[Crédito Acumulado (kWh)]]></text>
 			</staticText>
 			<rectangle radius="4">
 				<reportElement x="0" y="69" width="66" height="20" forecolor="#FFFFFF" backcolor="#EEEEEE" uuid="0d17235f-9aef-4d0c-b3ca-fdb0b83ad879">
@@ -1634,7 +1646,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{TotalFatura}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{totalFatura}]]></textFieldExpression>
 			</textField>
 			<textField pattern="d MMM, yyyy">
 				<reportElement x="0" y="69" width="67" height="20" uuid="469e308d-ce80-4b51-9c48-72ba54b6b9b1">
@@ -1664,7 +1676,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{totalConsumo}.multiply($P{Tarifa}).add($V{TotalFatura}.subtract($V{totalEnergiaFaturada}.multiply($P{Tarifa}))).setScale( 2, java.math.BigDecimal.ROUND_HALF_EVEN )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{totalConsumoRS}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00#">
 				<reportElement x="279" y="69" width="67" height="20" uuid="665657c6-828d-4a66-bedf-44ed69827649">
@@ -1674,7 +1686,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{totalConsumoRegistrado}.add($V{totalConsumoInstantaneo}).subtract($V{totalEnergiaFaturada}).multiply($P{Tarifa}).setScale( 2, java.math.BigDecimal.ROUND_HALF_EVEN )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{totalEconomiaRS}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00#">
 				<reportElement x="349" y="69" width="67" height="20" uuid="6b6691aa-bbc6-4e91-a46b-e60dc9f54e6d">
@@ -1684,9 +1696,9 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{totalConsumo}.subtract($V{totalEnergiaFaturada}).divide($V{totalConsumo}, 4, RoundingMode.HALF_UP).multiply(new java.math.BigDecimal(100))]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{totalEconomiaRS}.divide($V{totalConsumoRS}, 4, RoundingMode.HALF_UP).multiply(new java.math.BigDecimal(100))]]></textFieldExpression>
 			</textField>
-			<textField evaluationTime="Report">
+			<textField evaluationTime="Report" pattern="#,##0.00#">
 				<reportElement x="419" y="69" width="67" height="20" uuid="8456fdc9-4001-44df-880e-924b90ae0ee8">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -1698,7 +1710,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalCredito}]]></textFieldExpression>
 			</textField>
-			<textField evaluationTime="Report">
+			<textField evaluationTime="Report" pattern="#,##0.00#">
 				<reportElement x="490" y="69" width="65" height="20" uuid="0dd10b43-d3ed-47c1-a822-77393e1b57e4">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -1708,7 +1720,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="TaldiReportFont" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{totalCredito}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{CreditoAcumulado}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
