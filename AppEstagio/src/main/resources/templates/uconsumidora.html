@@ -7,11 +7,17 @@
 <link rel="stylesheet" href="/bootstrap-4.0.0/css/bootstrap.min.css" />
 </head>
 <body>
-	<nav class="navbar navbar-light bg-faded">
-		<a class="navbar-brand" href="#"> <img
-			th:src="@{/images/logo.png}" width="32" height="32"
-			class="d-inline-block align-top" alt="" /> Unidade Consumidora
-		</a>
+	<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+		<ul class="navbar-nav mr-auto">
+			<a class="navbar-brand" href="#"> <img
+				th:src="@{/images/logo.png}" width="32" height="32"
+				class="d-inline-block align-top" alt="" /> Unidade Consumidora
+			</a>
+		</ul>
+			<form class="form-inline" th:action="@{/app-logout}" method="POST">
+
+				<input class="align-right" type="submit" value="Logout" />
+			</form>
 	</nav>
 
 
@@ -37,7 +43,8 @@
 							<td th:text="${uconsumidora.denominacao}" />
 							<td th:text="${uconsumidora.contrato}" />
 							<td th:text="${proprietario}" />
-							<td><a th:href="@{faturas/{id}(id=${uconsumidora.id})}">Ver Faturas</a></td>
+							<td><a th:href="@{/usuario/protected/uconsumidora/faturas/{id}(id=${uconsumidora.id})}">Ver
+									Faturas</a></td>
 						</tr>
 					</th:block>
 				</tbody>
