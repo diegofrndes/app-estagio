@@ -3,7 +3,7 @@
 	width: 100%;
 	margin: 0;
 	padding: 0;
-	background-color: #fff;
+	background-color: #CBCBCB;
 	
 }
 
@@ -23,13 +23,16 @@
 	border-radius: 2px;
 	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 	overflow: hidden;
-	font-family: roboto;
+	font-family:Tahoma,Verdana,sans-serif;
 }
 
 .loginapp-container h1 {
 	text-align: center;
-	font-size: 1.8em;
-	font-family: roboto;
+	font-size: 1.1em;
+	font-family:Tahoma,Verdana,sans-serif;
+	color: #424242;
+	padding-top:35px;
+	padding-bottom:0px;
 }
 
 .loginapp-container input[type=submit] {
@@ -65,7 +68,7 @@
 .loginapp {
   text-align: center;
   font-size: 14px;
-  font-family: 'Arial', sans-serif;
+  font-family:Tahoma,Verdana,sans-serif;
   font-weight: 700;
   height: 36px;
   padding: 0 8px;
@@ -79,9 +82,8 @@
   border: 0px;
   color: #fff;
   text-shadow: 0 1px rgba(0,0,0,0.1); 
-  background-color: #4d90fe;
+  background-color: #5287BC;
   padding: 17px 0px;
-  font-family: roboto;
   font-size: 14px;
   /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
 }
@@ -90,7 +92,7 @@
   /* border: 1px solid #2f5bb7; */
   border: 0px;
   text-shadow: 0 1px rgba(0,0,0,0.3);
-  background-color: #357ae8;
+  background-color: #0066A9;
   /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
 }
 
@@ -106,4 +108,9 @@
 
 .login-help{
   font-size: 12px;
+  color: #666;
+  text-align: center;
+  display: inline-block;
+  opacity: 0.6;
+  font-family:Tahoma,Verdana,sans-serif; 
 }
