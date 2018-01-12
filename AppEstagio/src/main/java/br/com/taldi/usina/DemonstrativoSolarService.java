@@ -33,19 +33,25 @@ public class DemonstrativoSolarService {
 		List<DemonstrativoSolarDTO> demonstrativoSolarDTO = new ArrayList<>();
 		demonstrativoSolarDTO = demonstrativoSolarRepository.findDemonstrativoSolarDTOSByUsuarioAndMesAno(idUsuario,
 				mesAno);
-		System.out.println(demonstrativoSolarDTO.size());
 		for(int i = 0; i < demonstrativoSolarDTO.size(); i++) {
 			DemonstrativoSolarDTO d = demonstrativoSolarDTO.get(i);
 			d.setGeracaoUnidadeConsumidoraKWH(geracaoSolarRepository.getGeracaoByIdUnidadeConsumidoraAndCiclo(d.getUnidadeConsumidora().getId(),
 					d.getDemonstrativoSolar().getCicloInicio(), d.getDemonstrativoSolar().getCicloFim()));
+			if(d.getGeracaoUnidadeConsumidoraKWH() == null)
+				d.setGeracaoUnidadeConsumidoraKWH(new BigDecimal(0));
 			Fatura fatura = faturaRepository.findByUnidadeConsumidoraIdAndMesAno(d.getUnidadeConsumidora().getId(), mesAno);
 			//System.out.println(fatura.getMesAno().toString());
 			BigDecimal consumoInstantaneo = d.getGeracaoUnidadeConsumidoraKWH().subtract(d.getDemonstrativoSolar().getEnergiaInjetada());
 			if(consumoInstantaneo.signum() >= 0)
 				d.setConsumoInstantaneoUnidadeConsumidoraKWH(consumoInstantaneo.setScale(2, BigDecimal.ROUND_HALF_EVEN));
 			d.setValorFaturaUnidadeConsumidora(faturaRepository.getValorConsumoByFaturaId(fatura.getId()).add(faturaRepository.getValorOutroByFaturaId(fatura.getId())));
-			Tarifa tarifaFaturaUnidadeConsumidora = tarifaRepository.findByClassificacaoIdAndFimVigencia(d.getUnidadeConsumidora().getClassificacao().getId(), fatura.getMesAno());
-			d.setEconomiaUnidadeConsumidoraRS(tarifaFaturaUnidadeConsumidora.getValor().multiply(d.getDemonstrativoSolar().getEnergiaRegistrada().add(d.getConsumoInstantaneoUnidadeConsumidoraKWH()).subtract(d.getDemonstrativoSolar().getEnergiaFaturada())).setScale(2, BigDecimal.ROUND_HALF_EVEN));
+			//Forma antiga de calcular a economia (sem considerar as diferentes tarifas de acordo com o consumo)
+			//Tarifa tarifaFaturaUnidadeConsumidora = tarifaRepository.findByClassificacaoIdAndFimVigencia(d.getUnidadeConsumidora().getClassificacao().getId(), fatura.getMesAno());
+			//d.setEconomiaUnidadeConsumidoraRS(tarifaFaturaUnidadeConsumidora.getValor().multiply(d.getDemonstrativoSolar().getEnergiaRegistrada().add(d.getConsumoInstantaneoUnidadeConsumidoraKWH()).subtract(d.getDemonstrativoSolar().getEnergiaFaturada())).setScale(2, BigDecimal.ROUND_HALF_EVEN));
+			//Forma nova de calcular a economia (considerando as diferentes tarifas de acordo com o consumo)
+			Tarifa tarifaFaturaUnidadeConsumidoraSemUsina = tarifaRepository.findByClassificacaoIdAndFimVigenciaAndBetweenConsumoMinAndMax(d.getUnidadeConsumidora().getClassificacao().getId(), fatura.getMesAno(), d.getConsumoInstantaneoUnidadeConsumidoraKWH().add(d.getDemonstrativoSolar().getEnergiaRegistrada()));
+			System.out.println(tarifaFaturaUnidadeConsumidoraSemUsina.getValor());
+			d.setEconomiaUnidadeConsumidoraRS(tarifaFaturaUnidadeConsumidoraSemUsina.getValor().multiply(d.getDemonstrativoSolar().getEnergiaRegistrada().add(d.getConsumoInstantaneoUnidadeConsumidoraKWH()).subtract(d.getDemonstrativoSolar().getEnergiaFaturada())).setScale(2, BigDecimal.ROUND_HALF_EVEN));
 			d.setConsumoUnidadeConsumidoraRS(d.getEconomiaUnidadeConsumidoraRS().add(d.getValorFaturaUnidadeConsumidora()).setScale(2, BigDecimal.ROUND_HALF_EVEN));
 		}
 		

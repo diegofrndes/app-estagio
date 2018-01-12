@@ -23,6 +23,7 @@ public class Classificacao {
 	private String classe;
 	private String subclasse;
 	private String modalidade;
+	
 	@OneToMany(mappedBy="classificacao", fetch = FetchType.LAZY)
 	private List<Tarifa> tarifas;
 	
@@ -87,4 +88,5 @@ public class Classificacao {
 			
 		return classificacao;
 	}
+	
 }

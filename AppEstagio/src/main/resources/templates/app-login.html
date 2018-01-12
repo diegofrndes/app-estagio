@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" >
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<div class="jumbotron vertical-center">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 hidden-md-down"><div class="loginapp-container">
+					A</div></div>
+				<div class="col-lg-4 col-sm-12 col-md-12">
+					<div class="loginapp-container">
+						<h1>Entrar no Sistema</h1>
+						<br></br>
+						<form th:action="@{/app-login}" method ="POST">
+							<input type="text" name="app_usuario" placeholder="Usuário" /> 
+							<input type="password" name="app_senha" placeholder="Senha" /> 
+							<input type="submit" name="login" class="login loginmodal-submit" value="Login" />
+						</form>
+						<div class="login-help">
+							<a href="#">Register</a> - <a href="#">Forgot Password</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 hidden-md-down">C</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="assets/js/bootstrap.js"></script>
+</body>
+
+</html>

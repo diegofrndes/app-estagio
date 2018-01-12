@@ -26,7 +26,9 @@ public class Tarifa {
 	private Date inicioVigencia;
 	@Temporal(TemporalType.DATE)
 	private Date fimVigencia;
-
+	private BigDecimal consumoMin;
+	private BigDecimal consumoMax;
+	
 	public long getId() {
 		return id;
 	}
@@ -66,6 +68,22 @@ public class Tarifa {
 
 	public void setInicioVigencia(Date inicioVigencia) {
 		this.inicioVigencia = inicioVigencia;
+	}
+
+	public BigDecimal getConsumoMin() {
+		return consumoMin;
+	}
+
+	public void setConsumoMin(BigDecimal consumoMin) {
+		this.consumoMin = consumoMin;
+	}
+
+	public BigDecimal getConsumoMax() {
+		return consumoMax;
+	}
+
+	public void setConsumoMax(BigDecimal consumoMax) {
+		this.consumoMax = consumoMax;
 	}
 
 }

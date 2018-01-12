@@ -6,12 +6,18 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 import br.com.taldi.armazenamento.ArmazenamentoProperties;
 
+//Import log4j classes.
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 @SpringBootApplication
 @EnableConfigurationProperties(ArmazenamentoProperties.class)
 public class AppEstagio {
-
+    
+	private static final Logger logger = LogManager.getLogger(AppEstagio.class);
+    
 	public static void main(String[] args) {
+        logger.trace("Iniciando AppTaldi.");
 		SpringApplication.run(AppEstagio.class, args);
 	}
 	

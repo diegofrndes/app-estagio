@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.loginProcessingUrl("/app-login")
 		.usernameParameter("app_usuario")
 		.passwordParameter("app_senha")
-		.defaultSuccessUrl("/usuario/protected/uconsumidora")
+		.defaultSuccessUrl("/usuario/protected/home")
 		.and().logout().logoutUrl("/app-logout")
 		.logoutSuccessUrl("/usuario/login");
 	}

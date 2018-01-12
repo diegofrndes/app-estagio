@@ -1234,7 +1234,7 @@
 			</subreport>
 			<bar3DChart>
 				<chart isShowLegend="false" evaluationTime="Report">
-					<reportElement x="281" y="51" width="274" height="116" uuid="73bed06c-aa2b-4bdc-a7dc-9ec3a6a50a6a">
+					<reportElement x="281" y="51" width="274" height="116" uuid="545e8fe4-f28c-43b4-ab57-61224b39110d">
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -1258,10 +1258,21 @@
 						<font fontName="TaldiReportFont" size="8" isBold="true"/>
 					</itemLabel>
 					<categoryAxisFormat>
-						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000">
+							<labelFont>
+								<font size="10"/>
+							</labelFont>
+							<tickLabelFont>
+								<font fontName="TaldiReportFont" size="6"/>
+							</tickLabelFont>
+						</axisFormat>
 					</categoryAxisFormat>
 					<valueAxisFormat>
-						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000">
+							<tickLabelFont>
+								<font fontName="TaldiReportFont" size="8"/>
+							</tickLabelFont>
+						</axisFormat>
 					</valueAxisFormat>
 				</bar3DPlot>
 			</bar3DChart>
