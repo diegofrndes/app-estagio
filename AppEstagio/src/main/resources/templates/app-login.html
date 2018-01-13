@@ -1,30 +1,31 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header" >
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head th:replace="fragments/header :: header">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
 <body>
 	<div class="jumbotron vertical-center">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-4"></div>
-				<div class="col-lg-4 col-sm-12 col-md-12">
+				<div class="col-lg-4 col-xs-4"></div>
+				<div class="col-sm-12 col-md-12 col-lg-4 col-xs-4">
 					<div class="loginapp-container">
-						<img th:src="@{/images/logomarca.png}" width="100%" height="100%" class="d-inline-block align-top" alt="" />
+						<img th:src="@{/images/logomarca.png}" width="100%" class="d-inline-block align-top" alt="" />
 						<h1>Entrar no Sistema</h1>
-						<form th:action="@{/app-login}" method ="POST">
-							<input type="text" name="app_usuario" placeholder="Usuário" /> 
-							<input type="password" name="app_senha" placeholder="Senha" /> 
-							<input type="submit" name="login" class="login loginapp-submit" value="Login" />
+						<p th:if="${param.error}" class="error">Usuário e/ou senha
+							incorreto(s).</p>
+						<form class="form-group" th:action="@{/app-login}" method="POST">
+							<input type="text" name="app_usuario" placeholder="Usuário" /> <input
+								type="password" name="app_senha" placeholder="Senha" /> <input
+								type="submit" name="login" class="login loginapp-submit"
+								value="Login" />
 						</form>
-						<div class="login-help">
-							Copyright © 2018 TALDI ENGENHARIA
-						</div>
+						<div class="login-help">COPYRIGHT © 2018 TALDI ENGENHARIA</div>
 					</div>
 				</div>
-				<div class="col-lg-4"></div>
+				<div class="col-lg-4 col-xs-4"></div>
 			</div>
 		</div>
 	</div>
