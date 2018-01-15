@@ -9,7 +9,13 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 public interface DemonstrativoSolarRepository extends CrudRepository<DemonstrativoSolar, Long> {
-
+	
+	@Query("SELECT d FROM DemonstrativoSolar d "
+			+ "INNER JOIN d.fatura f "
+			+ "INNER JOIN f.unidadeConsumidora uc "
+			+ "WHERE uc.usuario.id = :idUsuario GROUP BY d.cicloMes ORDER BY d.cicloMes DESC")
+	public List<DemonstrativoSolar> findDemonstrativoSolarByUsuarioId(@Param("idUsuario") Long idUsuario);
+	
 	@Query("SELECT new br.com.taldi.usina.DemonstrativoSolarDTO(uc, d) FROM DemonstrativoSolar d "
 			+ "INNER JOIN d.fatura f "
 			+ "INNER JOIN f.unidadeConsumidora uc "

@@ -8,6 +8,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -20,6 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class ArmazenamentoSistemaArquivosService implements ArmazenamentoService {
 
 	private final Path rootLocation;
+	
+	private Logger logger = LogManager.getLogger(ArmazenamentoSistemaArquivosService.class);
 
 	@Autowired
 	public ArmazenamentoSistemaArquivosService(ArmazenamentoProperties properties) {
@@ -72,6 +76,11 @@ public class ArmazenamentoSistemaArquivosService implements ArmazenamentoService
 
 			}
 		} catch (MalformedURLException e) {
+			logger.info("Não foi possível ler o arquivo: " + filename, e.getMessage());
+			throw new ArmazenamentoArquivoNaoEncontradoException("Não foi possível ler o arquivo: " + filename, e);
+		}
+		catch (Exception e) {
+			logger.info("Não foi possível ler o arquivo: " + filename, e.getMessage());
 			throw new ArmazenamentoArquivoNaoEncontradoException("Não foi possível ler o arquivo: " + filename, e);
 		}
 	}

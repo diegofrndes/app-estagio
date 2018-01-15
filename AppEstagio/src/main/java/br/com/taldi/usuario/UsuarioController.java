@@ -27,7 +27,7 @@ public class UsuarioController {
 	public String login(HttpServletRequest request, @RequestParam(value="error", required=false) String error) {
 		if(error != null)
 	    	logger.error("Tentativa de login malsucedida.");
-	    logger.trace("Página de login.");
+	    logger.info("anonymoususer acessou a página de login.");
 		return "app-login";
 	}
 	

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+<meta http-equiv="Content-Type" content="text/html;" charset="UTF-8" />
+</head>
+
+<body>
+	<div th:replace="fragments/header :: body" />
+	<div class="content-wrapper">
+		<div class="container-fluid">
+			<!-- Breadcrumbs-->
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a
+					th:href="@{/usuario/protected/cliente/relatorios}">Relatórios</a></li>
+				<li class="breadcrumb-item active" th:text="${usuarioNome}"></li>
+			</ol>
+			<!-- Example DataTables Card-->
+			<div class="card mb-3">
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-bordered text-center" id="dataTable" width="100%" 
+							cellspacing="0">
+							<thead>
+								<tr>
+									<th>Mês/Ano</th>
+									<th>Faturado</th>
+									<th>Economia</th>
+									<th>Relatório</th>
+									<th>Demonstrativo</th>
+									<th>Faturas</th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+								</tr>
+							</tfoot>
+							<tbody>
+								<th:block th:each="linha : ${dadosTabelaRelatorios}">
+									<tr>
+										<td th:text="${#dates.monthName(linha.mesAno)} + '/' + ${#dates.year(linha.mesAno)}"/>
+										<td th:text="'R$ ' +  ${#numbers.formatDecimal(linha.faturado, 0, 'COMMA', 2, 'POINT')}"></td>
+										<td class="text-success" th:text="'R$ ' +  ${#numbers.formatDecimal(linha.economia, 0, 'COMMA', 2, 'POINT')}">R$ </td>
+										<td><a
+											th:href="@{solar/pdf/{arquivo}?mes={mes}(arquivo=${usuarioLogin} + '_' + ${#dates.monthName(linha.mesAno)} + '_' + ${#dates.year(linha.mesAno)}, mes=${linha.mesAno})}">
+												<i class="fa fa-fw fa-file-pdf-o"></i>
+										</a></td>
+										<td><a th:href="@{/files/{filename}(filename=${'demonstrativo_' + usuarioLogin + '_' + #dates.monthName(linha.mesAno) + '_' + #dates.year(linha.mesAno) + '.pdf'}, 
+											path=${'usuarios/' + usuarioId + '/demonstrativos/' + #dates.monthName(linha.mesAno) + '_' + #dates.year(linha.mesAno) + '/'})}">	
+											<i class="fa fa-fw fa-file-pdf-o"></i>
+										</a></td>
+										<td><a th:href="@{/usuario/protected/cliente/faturas}">Ver Faturas</a></td>
+									</tr>
+								</th:block>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="card-footer small text-muted">Tabela de Relatório Mensal</div>
+			</div>
+		</div>
+	</div>
+	<!-- /.container-fluid-->
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fa fa-angle-up"></i>
+	</a>
+	<footer th:replace="fragments/footer :: footer"> </footer>
+</body>
+
+</html>

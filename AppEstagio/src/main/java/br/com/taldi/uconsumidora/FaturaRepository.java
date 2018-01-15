@@ -9,6 +9,12 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 public interface FaturaRepository extends CrudRepository<Fatura, Long> {
+	
+	@Query("SELECT f FROM Fatura f "
+			+ "INNER JOIN f.unidadeConsumidora uc "
+			+ "WHERE uc.usuario.id = :idUsuario GROUP BY f.mesAno ORDER BY f.mesAno DESC")
+	public List<Fatura> findByUsuarioId(@Param("idUsuario") Long idUsuario);
+	
 	public List<Fatura> findByUnidadeConsumidoraId(@Param("id") Long id);
 
 	public Fatura findByUnidadeConsumidoraIdAndMesAno(@Param("id") Long id, @Param("mesAno") Date mesAno);

@@ -1,12 +1,110 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="header">
-    <title th:text="${@environment.getProperty('app.name')}">Template title</title>
-    <!-- metas, link and scripts -->
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet" href="/bootstrap-4.0.0/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="/css/application.css" />
+<title th:text="${@environment.getProperty('app.name')}">Template title</title>
+	<meta http-equiv="Content-Type" content="text/html;" charset="UTF-8" />
+	<!-- Bootstrap core CSS-->
+	<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+	<!-- Custom fonts for this template-->
+	<link href="/vendor/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css"/>
+	<!-- Page level plugin CSS-->
+	<link href="/vendor/datatables/dataTables.bootstrap4.css"
+	rel="stylesheet"/>
+	<!-- Custom styles for this template-->
+	<link rel="stylesheet" href="/css/sb-admin.css" />
+	<link rel="stylesheet" href="/css/login.css" />
 </head>
-<body>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+<div th:fragment="body">
+	<!-- Navigation-->	
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
+		id="mainNav">
+		<a class="navbar-left"><img
+			th:src="@{/images/logomarca_sem_texto.png}" /></a> <a
+			class="navbar-brand" th:href="@{/usuario/protected/cliente/home}"
+			th:text="${@environment.getProperty('app.name')}"></a>
+		<button class="navbar-toggler navbar-toggler-right" type="button"
+			data-toggle="collapse" data-target="#navbarResponsive"
+			aria-controls="navbarResponsive" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+				<li class="nav-item" data-toggle="tooltip" data-placement="right"
+					title="Painel de Dados"><a class="nav-link"
+					th:href="@{/usuario/protected/cliente/home}"> <i
+						class="fa fa-fw fa-dashboard"></i> <span class="nav-link-text">Painel
+							de Dados</span>
+				</a></li>
+				<li class="nav-item" data-toggle="tooltip" data-placement="right"
+					title="Relatórios"><a class="nav-link" th:href="@{/usuario/protected/cliente/relatorios}">
+						<i class="fa fa-fw fa-bar-chart"></i> <span class="nav-link-text">Relatórios</span>
+				</a></li>
+				<li class="nav-item" data-toggle="tooltip" data-placement="right"
+					title="Faturas"><a class="nav-link" th:href="@{/usuario/protected/cliente/faturas}"> <i
+						class="fa fa-fw fa-file-text"></i> <span class="nav-link-text">Faturas</span>
+				</a></li>
+				<li class="nav-item" data-toggle="tooltip" data-placement="right"
+					title="Unidades Consumidoras"><a class="nav-link"
+					th:href="@{/usuario/protected/cliente/uconsumidoras}"> <i class="fa fa-fw fa-industry"></i> <span
+						class="nav-link-text">Unidades Consumidoras</span>
+				</a></li>
+			</ul>
+			<ul class="navbar-nav sidenav-toggler">
+				<li class="nav-item"><a class="nav-link text-center"
+					id="sidenavToggler"> <i class="fa fa-fw fa-angle-left"></i>
+				</a></li>
+			</ul>
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item"><a class="nav-link" data-toggle="modal"
+					data-target="#exampleModal"> <i class="fa fa-fw fa-sign-out"></i>Sair
+				</a></li>
+			</ul>
+		</div>
+	</nav>
+	<!-- Logout Modal-->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Deseja
+						realmente sair?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Selecione "Logout" se você deseja
+					encerrar a sessão.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">Cancelar</button>
+					<form class="form-inline" th:action="@{/app-logout}" method="POST">
+						<input class="btn btn-primary" type="submit" value="Logout" />
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Bootstrap core JavaScript-->
+	<script src="/vendor/jquery/jquery.min.js"></script>
+	<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Core plugin JavaScript-->
+	<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Page level plugin JavaScript-->
+	<script src="/vendor/chart.js/Chart.min.js"></script>
+	<script src="/vendor/datatables/jquery.dataTables.js"></script>
+	<script src="/vendor/datatables/dataTables.bootstrap4.js"></script>
+	<!-- Custom scripts for all pages-->
+	<script src="/js/sb-admin.min.js"></script>
+	<!-- Custom scripts for this page-->
+	<script src="/js/sb-admin-datatables.min.js"></script>
+	<script src="/js/sb-admin-charts.min.js"></script>
+
+</div>
 </body>
 </html>

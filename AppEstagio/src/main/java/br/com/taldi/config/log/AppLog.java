@@ -21,6 +21,7 @@ public class AppLog {
 	private Date dataEvento;
 	@Column(columnDefinition = "TEXT")
 	private String mensagem;
+	private String logger;
 	
 	public String getLevel() {
 		return level;
@@ -28,6 +29,14 @@ public class AppLog {
 	
 	public void setLevel(String level) {
 		this.level = level;
+	}
+
+	public String getLogger() {
+		return logger;
+	}
+
+	public void setLogger(String logger) {
+		this.logger = logger;
 	}
 	
 	

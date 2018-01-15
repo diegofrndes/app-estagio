@@ -14,10 +14,11 @@
 			<Column name="level" pattern="%level" />
 			<Column name="data_evento" isEventTimestamp="true" />
 			<Column name="mensagem" pattern="%message" />
+			<Column name="logger" pattern="%logger" />
 		</JDBC>
 	</Appenders>
 	<Loggers>
-		<Logger name="br.com.taldi.usuario" level="error" additivity="false">
+		<Logger name="br.com.taldi" level="info" additivity="false">
 			<AppenderRef ref="ConsoleAppender" />
 			<AppenderRef ref="DatabaseAppender"/>
 		</Logger>

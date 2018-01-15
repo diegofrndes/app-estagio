@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>Fotovoltaldi</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet" href="/bootstrap-4.0.0/css/bootstrap.min.css" />
+<head th:replace="fragments/header :: header">
+<meta http-equiv="Content-Type" content="text/html;" charset="UTF-8" />
 </head>
 
 <body>
-	<div class="container-fluid">
-		Olá
-	</div>
+	<div th:replace="fragments/header :: body"/>
+		<div class="content-wrapper">
+			<div class="container-fluid">
+				<!-- Breadcrumbs-->
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="#">Painel de Dados</a></li>
+					<li class="breadcrumb-item active" th:text="${usuarioNome}"></li>
+				</ol>
+			</div>
+			<!-- /.container-fluid-->
+		</div>
+		<!-- /.content-wrapper-->
 
-	<script src="/jquery/jquery-3.2.1.min.js"></script>
-	<script src="/bootstrap-4.0.0/js/bootstrap.min.js"></script>
 
+		<!-- Scroll to Top Button-->
+		<a class="scroll-to-top rounded" href="#page-top"> <i
+			class="fa fa-angle-up"></i>
+		</a>
+		<footer th:replace="fragments/footer :: footer"> </footer>
 </body>
 
 </html>
