@@ -39,7 +39,17 @@ public class Usuario {
 	private Pessoa pessoa;
 	@OneToMany(mappedBy="usuario", fetch = FetchType.LAZY)
 	private List<UnidadeConsumidora> unidadesConsumidoras;
+	@Column(nullable = false)
+	private String email;
 	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "usuario_role", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;

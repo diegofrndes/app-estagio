@@ -40,7 +40,7 @@
 									<tr>
 										<td th:text="${linha.unidadeConsumidora.denominacao}"/>
 										<td th:text="${linha.unidadeConsumidora.contrato}"/>
-										<td th:text="${linha.unidadeConsumidora.classificacao.subgrupo}"/>
+										<td th:text="${linha.unidadeConsumidora.classificacao.subgrupo + ' ' + linha.unidadeConsumidora.classificacao.classe}"/>
 										<td th:text="${linha.unidadeConsumidora.ligacao.nome}"/>	
 										<td th:text="${linha.unidadeConsumidora.endereco.logradouro}"/>	
 									</tr>

@@ -13,7 +13,7 @@
 	rel="stylesheet"/>
 	<!-- Custom styles for this template-->
 	<link rel="stylesheet" href="/css/sb-admin.css" />
-	<link rel="stylesheet" href="/css/login.css" />
+	
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -34,10 +34,8 @@
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
-					title="Painel de Dados"><a class="nav-link"
-					th:href="@{/usuario/protected/cliente/home}"> <i
-						class="fa fa-fw fa-dashboard"></i> <span class="nav-link-text">Painel
-							de Dados</span>
+					title="Usina Solar"><a class="nav-link" th:href="@{/usuario/protected/cliente/usina}">
+						<i class="fa fa-fw fa-flash"></i> <span class="nav-link-text">Usina Solar</span>
 				</a></li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
 					title="Relatórios"><a class="nav-link" th:href="@{/usuario/protected/cliente/relatorios}">
@@ -96,15 +94,12 @@
 	<!-- Core plugin JavaScript-->
 	<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
 	<!-- Page level plugin JavaScript-->
-	<script src="/vendor/chart.js/Chart.min.js"></script>
 	<script src="/vendor/datatables/jquery.dataTables.js"></script>
 	<script src="/vendor/datatables/dataTables.bootstrap4.js"></script>
 	<!-- Custom scripts for all pages-->
 	<script src="/js/sb-admin.min.js"></script>
 	<!-- Custom scripts for this page-->
 	<script src="/js/sb-admin-datatables.min.js"></script>
-	<script src="/js/sb-admin-charts.min.js"></script>
-
 </div>
 </body>
 </html>

@@ -19,16 +19,6 @@ public class ClienteController {
 	@Autowired
 	private ClienteService clienteService;
 	
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public ModelAndView home(@AuthenticationPrincipal UserDetails userDetails) {
-		UsuarioPrincipal usuarioPrincipal = (UsuarioPrincipal) userDetails;		
-		logger.info(usuarioPrincipal.getUsername() + " acessou painel de dados.");
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("usuarioNome", usuarioPrincipal.getUsuario().getPessoa().getNome());
-		modelAndView.setViewName("cliente");
-		return modelAndView;
-	}
-	
 	@RequestMapping(value = "/relatorios", method = RequestMethod.GET)
 	public ModelAndView relatorios(@AuthenticationPrincipal UserDetails userDetails) {
 		UsuarioPrincipal usuarioPrincipal = (UsuarioPrincipal) userDetails;		
@@ -68,4 +58,20 @@ public class ClienteController {
 		return modelAndView;
 	}
 
+	@RequestMapping(value = "/usina", method = RequestMethod.GET)
+	public ModelAndView usina(@AuthenticationPrincipal UserDetails userDetails) {
+		UsuarioPrincipal usuarioPrincipal = (UsuarioPrincipal) userDetails;		
+		logger.info(usuarioPrincipal.getUsername() + " acessou usina solar.");
+		ModelAndView modelAndView = new ModelAndView();
+		 
+        modelAndView.addObject("usuarioNome", usuarioPrincipal.getUsuario().getPessoa().getNome());
+		modelAndView.addObject("usuarioId", usuarioPrincipal.getUsuario().getId());
+		modelAndView.addObject("usuarioLogin", usuarioPrincipal.getUsername());
+		modelAndView.addObject("usuarioUsina", clienteService.getDadosUsina(usuarioPrincipal.getUsuario().getId()));		
+		modelAndView.setViewName("usina");
+		
+		return modelAndView;
+	}
+	
+	
 }

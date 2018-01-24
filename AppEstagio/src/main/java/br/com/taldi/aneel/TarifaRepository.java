@@ -9,7 +9,9 @@ import org.springframework.data.repository.query.Param;
 
 public interface TarifaRepository extends CrudRepository<Tarifa, Long>{
 	
-	public Tarifa findByClassificacaoId(Long classificacaoId);
+	@Query("SELECT AVG(t.valor) FROM Tarifa t WHERE t.classificacao.id = :classificacaoId")
+	public BigDecimal findAverageByClassificacaoId(@Param("classificacaoId") Long classificacaoId);
+	
 	public Tarifa findByClassificacaoIdAndFimVigencia(Long classificacaoId, Date fimVigencia);
 
 	@Query("SELECT t FROM Tarifa t "
@@ -17,4 +19,5 @@ public interface TarifaRepository extends CrudRepository<Tarifa, Long>{
 			+ "WHERE c.id = :classificacaoId AND t.fimVigencia = :fimVigencia AND :consumo BETWEEN ifnull(t.consumoMin,0) AND ifnull(t.consumoMax,99999999)")
 	public Tarifa findByClassificacaoIdAndFimVigenciaAndBetweenConsumoMinAndMax(@Param("classificacaoId") Long classificacaoId,@Param("fimVigencia") Date fimVigencia,@Param("consumo") BigDecimal consumo);	
 
+	
 }

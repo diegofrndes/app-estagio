@@ -3,6 +3,7 @@
  * Copyright 2013-2017 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-sb-admin/blob/master/LICENSE)
  */
+ 
 html {
   position: relative;
   min-height: 100%; }
@@ -17,6 +18,10 @@ body.sticky-footer {
 
 body.fixed-nav {
   padding-top: 56px; }
+
+.chart {
+	min-height: 100%;
+}
 
 .content-wrapper {
   min-height: calc(100vh - 56px);

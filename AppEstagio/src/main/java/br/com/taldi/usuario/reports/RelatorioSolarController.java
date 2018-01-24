@@ -57,15 +57,13 @@ public class RelatorioSolarController {
 		JasperReportsPdfView view = new JasperReportsPdfView();
 		Map<String, Object> params = new HashMap<>();
 		try {
-			
 			UsuarioPrincipal usuarioPrincipal = (UsuarioPrincipal) userDetails;		
 			SimpleDateFormat ft = new SimpleDateFormat ("MMMM/yyyy");
 			logger.info(usuarioPrincipal.getUsername() + " gerando relatório de " + ft.format(mes) + ".");			
 			view.setUrl("classpath:jasperreports/reports/solar/solar.jasper");
 			view.setApplicationContext(appContext);
 			params.put("IdUsuario", usuarioPrincipal.getUsuario().getId());
-			params.put("Mes", mes);
-			params.put("Prognostico", relatorioSolarService.getPrognosticoByUsuarioId(usuarioPrincipal.getUsuario().getId()));
+			params.put("Mes", mes);			
 			params.put("LogoPath", Paths.get(armazenamentoProperties.getLocation()).toString() + "/usuarios/"
 					+ Long.toString(usuarioPrincipal.getUsuario().getId()) + "/logo/logo.png");
 			List<DemonstrativoSolarDTO> datasource = new ArrayList<DemonstrativoSolarDTO>();
@@ -87,13 +85,15 @@ public class RelatorioSolarController {
 				params.put("CepCidade", "CEP - " + datasource.get(0).getUnidadeConsumidora().getEndereco().getCep()
 						+ " - " + datasource.get(0).getUnidadeConsumidora().getEndereco().getCidade().getNome() + " - "
 						+ datasource.get(0).getUnidadeConsumidora().getEndereco().getCidade().getEstado().getUf());
-				params.put("Email", datasource.get(0).getUnidadeConsumidora().getUsuario().getLogin());
+				params.put("Email", datasource.get(0).getUnidadeConsumidora().getUsuario().getEmail());
 				params.put("CicloInicio", datasource.get(0).getDemonstrativoSolar().getCicloInicio());
 				params.put("CicloFim", datasource.get(0).getDemonstrativoSolar().getCicloFim());
-				params.put("NumeroDias",
-						relatorioSolarService.getNumeroDiasCiclo(
-								datasource.get(0).getDemonstrativoSolar().getCicloInicio(),
-								datasource.get(0).getDemonstrativoSolar().getCicloFim()));
+				
+				params.put("GeracaoContratadaDia", relatorioSolarService.getPrognosticoByUsuarioId(usuarioPrincipal.getUsuario().getId(), datasource.get(0).getDemonstrativoSolar().getCicloInicio()));
+				params.put("Prognostico", relatorioSolarService.getPrognosticoByUsuarioId(usuarioPrincipal.getUsuario().getId(), datasource.get(0).getDemonstrativoSolar().getCicloInicio()).multiply(relatorioSolarService.getNumeroDiasCiclo(
+						datasource.get(0).getDemonstrativoSolar().getCicloInicio(),
+						datasource.get(0).getDemonstrativoSolar().getCicloFim())));
+	
 				params.put("CreditoAcumulado", relatorioSolarService.getCreditoAcumuladoByUsuarioId(usuarioPrincipal.getUsuario().getId(), mes));
 			}
 			params.put("datasource", datasource);

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,10 @@ import br.com.taldi.usina.DemonstrativoSolar;
 import br.com.taldi.usina.DemonstrativoSolarDTO;
 import br.com.taldi.usina.DemonstrativoSolarRepository;
 import br.com.taldi.usina.GeracaoSolarRepository;
+import br.com.taldi.usina.IrradiacaoSolar;
+import br.com.taldi.usina.IrradiacaoSolarRepository;
+import br.com.taldi.usina.UsinaSolar;
+import br.com.taldi.usina.UsinaSolarRepository;
 
 @Service
 public class ClienteService {
@@ -31,7 +36,10 @@ public class ClienteService {
 	public TarifaRepository tarifaRepository;
 	@Autowired
 	public UnidadeConsumidoraRepository unidadeConsumidoraRepository;
-	
+	@Autowired
+	public UsinaSolarRepository usinaSolarRepository;
+	@Autowired
+	public IrradiacaoSolarRepository irradiacaoSolarRepository;
 	
 	public List<DadosTabelaRelatorios> getDadosTabelaRelatorios(long idUsuario){
 		List<DadosTabelaRelatorios> dadosTabelaRelatorios = new ArrayList<DadosTabelaRelatorios>();
@@ -100,6 +108,30 @@ public class ClienteService {
 		}
 			
 		return dadosTabelaUnidadesConsumidoras;
+	}
+	
+	public DadosUsina getDadosUsina(long idUsuario){
+		DadosUsina dados = new DadosUsina();
+		List<UsinaSolar> usinas = usinaSolarRepository.findUsinaSolarByUsuarioId(idUsuario);
+		if(usinas != null) {
+			dados.setUsinaSolar(usinas.get(0));			
+			dados.setGeracaoSolar(geracaoSolarRepository.findTop30ByUsinaSolarIdOrderByDataDesc(usinas.get(0).getId()));
+			dados.setMediaTarifa(tarifaRepository.findAverageByClassificacaoId(usinas.get(0).getUnidadeConsumidora().getClassificacao().getId()));
+			
+			DateTime mesAtual = new DateTime();
+			DateTime mesAnterior = mesAtual.minusMonths(1);			
+			IrradiacaoSolar ir = irradiacaoSolarRepository.findIrradiacaoSolarByMes(mesAtual.toDate(), usinas.get(0).getUnidadeConsumidora().getEndereco().getCidade().getId());		
+			IrradiacaoSolar ir2 = irradiacaoSolarRepository.findIrradiacaoSolarByMes(mesAnterior.toDate(), usinas.get(0).getUnidadeConsumidora().getEndereco().getCidade().getId());		
+			
+			if(ir != null)
+				dados.setPrognostico(ir.getValor().multiply(usinas.get(0).getPerformance().multiply(usinas.get(0).getPotencia())));
+			else dados.setPrognostico((new IrradiacaoSolar()).getValor().multiply(usinas.get(0).getPerformance().multiply(usinas.get(0).getPotencia())));
+			if(ir2 != null)
+				dados.setPrognosticoAnterior(ir2.getValor().multiply(usinas.get(0).getPerformance().multiply(usinas.get(0).getPotencia())));
+			else dados.setPrognosticoAnterior((new IrradiacaoSolar()).getValor().multiply(usinas.get(0).getPerformance().multiply(usinas.get(0).getPotencia())));
+			return dados;
+		}
+		else return null;
 	}
 	
 }

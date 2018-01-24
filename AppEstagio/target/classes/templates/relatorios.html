@@ -15,12 +15,12 @@
 					th:href="@{/usuario/protected/cliente/relatorios}">Relatórios</a></li>
 				<li class="breadcrumb-item active" th:text="${usuarioNome}"></li>
 			</ol>
-			<!-- Example DataTables Card-->
+			<!-- Example DataTables-->
 			<div class="card mb-3">
 				<div class="card-body">
 					<div class="table-responsive">
-						<table class="table table-bordered text-center" id="dataTable" width="100%" 
-							cellspacing="0">
+						<table class="table table-bordered text-center" id="dataTable"
+							width="100%" cellspacing="0">
 							<thead>
 								<tr>
 									<th>Mês/Ano</th>
@@ -38,25 +38,32 @@
 							<tbody>
 								<th:block th:each="linha : ${dadosTabelaRelatorios}">
 									<tr>
-										<td th:text="${#dates.monthName(linha.mesAno)} + '/' + ${#dates.year(linha.mesAno)}"/>
-										<td th:text="'R$ ' +  ${#numbers.formatDecimal(linha.faturado, 0, 'COMMA', 2, 'POINT')}"></td>
-										<td class="text-success" th:text="'R$ ' +  ${#numbers.formatDecimal(linha.economia, 0, 'COMMA', 2, 'POINT')}">R$ </td>
-										<td><a
+										<td
+											th:text="${#dates.monthName(linha.mesAno)} + '/' + ${#dates.year(linha.mesAno)}" />
+										<td
+											th:text="'R$ ' +  ${#numbers.formatDecimal(linha.faturado, 0, 'COMMA', 2, 'POINT')}"></td>
+										<td class="text-success"
+											th:text="'R$ ' +  ${#numbers.formatDecimal(linha.economia, 0, 'COMMA', 2, 'POINT')}">R$
+										</td>
+										<td><a th:target="_blank"
 											th:href="@{solar/pdf/{arquivo}?mes={mes}(arquivo=${usuarioLogin} + '_' + ${#dates.monthName(linha.mesAno)} + '_' + ${#dates.year(linha.mesAno)}, mes=${linha.mesAno})}">
 												<i class="fa fa-fw fa-file-pdf-o"></i>
 										</a></td>
-										<td><a th:href="@{/files/{filename}(filename=${'demonstrativo_' + usuarioLogin + '_' + #dates.monthName(linha.mesAno) + '_' + #dates.year(linha.mesAno) + '.pdf'}, 
-											path=${'usuarios/' + usuarioId + '/demonstrativos/' + #dates.monthName(linha.mesAno) + '_' + #dates.year(linha.mesAno) + '/'})}">	
-											<i class="fa fa-fw fa-file-pdf-o"></i>
+										<td><a
+											th:href="@{/files/{filename}(filename=${'demonstrativo_' + usuarioLogin + '_' + #dates.monthName(linha.mesAno) + '_' + #dates.year(linha.mesAno) + '.pdf'}, 
+											path=${'usuarios/' + usuarioId + '/demonstrativos/' + #dates.monthName(linha.mesAno) + '_' + #dates.year(linha.mesAno) + '/'})}">
+												<i class="fa fa-fw fa-file-pdf-o"></i>
 										</a></td>
-										<td><a th:href="@{/usuario/protected/cliente/faturas}">Ver Faturas</a></td>
+										<td><a th:href="@{/usuario/protected/cliente/faturas}">Ver
+												Faturas</a></td>
 									</tr>
 								</th:block>
 							</tbody>
 						</table>
 					</div>
 				</div>
-				<div class="card-footer small text-muted">Tabela de Relatório Mensal</div>
+				<div class="card-footer small text-muted">Tabela de Relatório
+					Mensal</div>
 			</div>
 		</div>
 	</div>
@@ -66,6 +73,7 @@
 		class="fa fa-angle-up"></i>
 	</a>
 	<footer th:replace="fragments/footer :: footer"> </footer>
+	
 </body>
 
 </html>

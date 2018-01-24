@@ -28,7 +28,7 @@ public class UsinaSolar {
 	private UnidadeConsumidora unidadeConsumidora;
 	
 	private BigDecimal potencia;
-	private BigDecimal energiaAno;
+	private BigDecimal performance;
 	
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
@@ -59,12 +59,12 @@ public class UsinaSolar {
 		this.potencia = potencia;
 	}
 
-	public BigDecimal getEnergiaAno() {
-		return energiaAno;
+	public BigDecimal getPerformance() {
+		return performance;
 	}
 
-	public void setEnergiaAno(BigDecimal energiaAno) {
-		this.energiaAno = energiaAno;
+	public void setPerformance(BigDecimal performance) {
+		this.performance = performance;
 	}
 	
 }

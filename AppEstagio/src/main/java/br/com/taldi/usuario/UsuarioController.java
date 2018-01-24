@@ -20,7 +20,7 @@ public class UsuarioController {
 
 	@GetMapping("/protected/home")
 	public String protegido(HttpServletRequest request) {
-		return request.isUserInRole("ROLE_ADMIN") ? "redirect:admin/home":"redirect:cliente/home";
+		return request.isUserInRole("ROLE_ADMIN") ? "redirect:admin/home":"redirect:cliente/usina";
 	}
 	
 	@GetMapping("/login")

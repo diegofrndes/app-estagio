@@ -62,4 +62,8 @@ public class Endereco {
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
 	}
+	
+	public String toString() {
+		return logradouro + " " + cidade.getNome() + "/" + cidade.getEstado().getUf();
+	}
 }

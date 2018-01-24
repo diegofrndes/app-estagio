@@ -31,8 +31,7 @@ public class DemonstrativoSolarService {
 	
 	public List<DemonstrativoSolarDTO> getDemonstrativoSolarDTOSByUsuarioAndMesAno(long idUsuario, Date mesAno) {
 		List<DemonstrativoSolarDTO> demonstrativoSolarDTO = new ArrayList<>();
-		demonstrativoSolarDTO = demonstrativoSolarRepository.findDemonstrativoSolarDTOSByUsuarioAndMesAno(idUsuario,
-				mesAno);
+		demonstrativoSolarDTO = demonstrativoSolarRepository.findDemonstrativoSolarDTOSByUsuarioAndMesAno(idUsuario, mesAno);
 		for(int i = 0; i < demonstrativoSolarDTO.size(); i++) {
 			DemonstrativoSolarDTO d = demonstrativoSolarDTO.get(i);
 			d.setGeracaoUnidadeConsumidoraKWH(geracaoSolarRepository.getGeracaoByIdUnidadeConsumidoraAndCiclo(d.getUnidadeConsumidora().getId(),
@@ -50,7 +49,6 @@ public class DemonstrativoSolarService {
 			//d.setEconomiaUnidadeConsumidoraRS(tarifaFaturaUnidadeConsumidora.getValor().multiply(d.getDemonstrativoSolar().getEnergiaRegistrada().add(d.getConsumoInstantaneoUnidadeConsumidoraKWH()).subtract(d.getDemonstrativoSolar().getEnergiaFaturada())).setScale(2, BigDecimal.ROUND_HALF_EVEN));
 			//Forma nova de calcular a economia (considerando as diferentes tarifas de acordo com o consumo)
 			Tarifa tarifaFaturaUnidadeConsumidoraSemUsina = tarifaRepository.findByClassificacaoIdAndFimVigenciaAndBetweenConsumoMinAndMax(d.getUnidadeConsumidora().getClassificacao().getId(), fatura.getMesAno(), d.getConsumoInstantaneoUnidadeConsumidoraKWH().add(d.getDemonstrativoSolar().getEnergiaRegistrada()));
-			//System.out.println(tarifaFaturaUnidadeConsumidoraSemUsina.getValor());
 			d.setEconomiaUnidadeConsumidoraRS(tarifaFaturaUnidadeConsumidoraSemUsina.getValor().multiply(d.getDemonstrativoSolar().getEnergiaRegistrada().add(d.getConsumoInstantaneoUnidadeConsumidoraKWH()).subtract(d.getDemonstrativoSolar().getEnergiaFaturada())).setScale(2, BigDecimal.ROUND_HALF_EVEN));
 			d.setConsumoUnidadeConsumidoraRS(d.getEconomiaUnidadeConsumidoraRS().add(d.getValorFaturaUnidadeConsumidora()).setScale(2, BigDecimal.ROUND_HALF_EVEN));
 		}

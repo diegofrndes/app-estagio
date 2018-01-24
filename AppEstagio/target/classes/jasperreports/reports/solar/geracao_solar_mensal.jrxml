@@ -7,7 +7,7 @@
 	<parameter name="IdUsuario" class="java.lang.Long"/>
 	<parameter name="Mes" class="java.util.Date"/>
 	<parameter name="Prognostico" class="java.math.BigDecimal"/>
-	<parameter name="NumeroDias" class="java.math.BigDecimal"/>
+	<parameter name="PosicaoLinha" class="java.math.BigDecimal"/>
 	<queryString>
 		<![CDATA[SELECT geracao_solar.quantidade, geracao_solar.data FROM unidade_consumidora
 INNER JOIN usina_solar ON usina_solar.id_unidade_consumidora = unidade_consumidora.id
@@ -32,7 +32,7 @@ WHERE unidade_consumidora.id_usuario = $P{IdUsuario} GROUP BY geracao_solar.data
 		<variableExpression><![CDATA[$F{quantidade}]]></variableExpression>
 	</variable>
 	<variable name="GeracaoContratadaCiclo" class="java.math.BigDecimal">
-		<variableExpression><![CDATA[$P{NumeroDias}.multiply($P{Prognostico}.divide(new java.math.BigDecimal("365.00"),4, RoundingMode.HALF_UP)).setScale(2, java.math.BigDecimal.ROUND_HALF_EVEN )]]></variableExpression>
+		<variableExpression><![CDATA[$P{Prognostico}.setScale(2, java.math.BigDecimal.ROUND_HALF_EVEN )]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -84,7 +84,7 @@ WHERE unidade_consumidora.id_usuario = $P{IdUsuario} GROUP BY geracao_solar.data
 			</barChart>
 			<lineChart>
 				<chart isShowLegend="false" evaluationTime="Report">
-					<reportElement x="-6" y="0" width="284" height="259" uuid="3b037ffd-09da-415a-b673-16710b4391f8">
+					<reportElement x="-6" y="0" width="284" height="259" uuid="74555d36-d69c-46a9-ba0a-2eb216d3aa9c">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					</reportElement>
 					<chartTitle/>
@@ -95,12 +95,12 @@ WHERE unidade_consumidora.id_usuario = $P{IdUsuario} GROUP BY geracao_solar.data
 					<categorySeries>
 						<seriesExpression><![CDATA["SERIES 1"]]></seriesExpression>
 						<categoryExpression><![CDATA[$F{data}.toLocaleString().substring(0,10)]]></categoryExpression>
-						<valueExpression><![CDATA[$P{Prognostico}.divide(new java.math.BigDecimal("365.00"), 27, RoundingMode.HALF_UP)]]></valueExpression>
+						<valueExpression><![CDATA[$P{PosicaoLinha}]]></valueExpression>
 					</categorySeries>
 				</categoryDataset>
 				<linePlot isShowShapes="false">
 					<plot orientation="Horizontal">
-						<seriesColor seriesOrder="0" color="#FF6663"/>
+						<seriesColor seriesOrder="0" color="#DC3912"/>
 					</plot>
 					<categoryAxisFormat>
 						<axisFormat labelColor="#000000" tickLabelColor="rgba(0, 0, 0, 0.0)" axisLineColor="#000000">
@@ -153,7 +153,7 @@ WHERE unidade_consumidora.id_usuario = $P{IdUsuario} GROUP BY geracao_solar.data
 				<text><![CDATA[Geração Contratada]]></text>
 			</staticText>
 			<rectangle radius="4">
-				<reportElement x="75" y="249" width="7" height="7" forecolor="#B0B0B0" backcolor="#FF6663" uuid="ca4ad13d-ac16-464a-8b26-a97bc73c1698">
+				<reportElement x="75" y="249" width="7" height="7" forecolor="#B0B0B0" backcolor="#DC3912" uuid="ca4ad13d-ac16-464a-8b26-a97bc73c1698">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -195,7 +195,7 @@ WHERE unidade_consumidora.id_usuario = $P{IdUsuario} GROUP BY geracao_solar.data
 				</xyDataset>
 				<barPlot isShowLabels="true" isShowTickLabels="false" isShowTickMarks="false">
 					<plot backgroundAlpha="1.0">
-						<seriesColor seriesOrder="0" color="#FF6663"/>
+						<seriesColor seriesOrder="0" color="#DC3912"/>
 						<seriesColor seriesOrder="1" color="#B0B0B0"/>
 					</plot>
 					<itemLabel color="#000000">

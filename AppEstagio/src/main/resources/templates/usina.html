@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+<meta http-equiv="Content-Type" content="text/html;" charset="UTF-8" />
+</head>
+
+<body>
+	<div th:replace="fragments/header :: body" />
+	<div class="content-wrapper">
+		<div class="container-fluid" style="height: 68vh;">
+			<!-- Breadcrumbs-->
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a
+					th:href="@{/usuario/protected/cliente/usina}">Usina Solar</a></li>
+				<li class="breadcrumb-item active" th:text="${usuarioNome}"></li>
+			</ol>
+			<!-- Gráfico de Geração -->
+			<div class="card mb-3" style="height: 100%;">
+				<div class="card-header">
+					<i class="fa fa-area-chart"></i> Geração dos últimos 30 dias
+				</div>
+				<div class="row" style="height: 100%;">
+					<div class="col-md-12">
+						<div id="chart_div" class="chart"></div>
+					</div>
+				</div>
+				<div class="card-footer small text-muted"
+					th:text="${'Endereço da Usina: ' + usuarioUsina.usinaSolar.unidadeConsumidora.endereco}"></div>
+			</div>
+		</div>
+	</div>
+	<!-- /.container-fluid-->
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fa fa-angle-up"></i>
+	</a>
+	<footer th:replace="fragments/footer :: footer"> </footer>
+	<script type="text/javascript"
+		src="https://www.gstatic.com/charts/loader.js"></script>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		google.charts.load('current', {
+			packages : [ 'corechart', 'bar' ],
+		    'language': 'pt'
+		});
+		google.charts.setOnLoadCallback(drawChart);
+
+		$(window).resize(function() {
+			drawChart();
+		});
+
+		function drawChart() {
+			var meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+			var d = new Date();
+			var monthName = meses[d.getMonth()];
+			
+			var data = new google.visualization.DataTable();
+			data.addColumn('date', '');
+			data.addColumn('number', 'Geração kWh', );
+			data.addColumn({type:'string', role:'interval'});
+			data.addColumn('number', 'Prognóstico ');
+			
+			var i = /*[[${usuarioUsina.geracaoSolar}]]*/;
+			var prog = /*[[${usuarioUsina.prognostico}]]*/;
+			var progAnterior = /*[[${usuarioUsina.prognosticoAnterior}]]*/;
+			var mediaTarifa = /*[[${usuarioUsina.mediaTarifa}]]*/;
+			
+			if(i != null){
+				i.forEach(function(e){
+					var dataG = new Date(e.data);
+					if(dataG.getMonth() == d.getMonth())
+						data.addRows([ 
+							[ new Date(e.data), e.quantidade, 'R$ ' + Math.round(mediaTarifa*e.quantidade*100)/100, prog ],  ]);
+					else data.addRows([ 
+						[ new Date(e.data), e.quantidade, 'R$ ' + Math.round(mediaTarifa*e.quantidade*100)/100, progAnterior ],  ]);
+					
+				});
+			}
+		
+			var options = {
+				legend : 'top', 
+	            chartArea: {'width': '92%', 'height': '60%'},
+	            vAxis: { gridlines: { count: 5 }, 
+			         textStyle: { fontSize: '14' } },
+				hAxis : {
+					 format: 'dd-MM',
+				     slantedText: true, 
+				     slantedTextAngle: 90, // here you can even use 180 
+			         gridlines: {count: 15},
+			         textStyle: { fontSize: '14' }
+				},	
+				seriesType: 'bars',
+			    series: {1: {type: 'line'}}	
+			};
+
+			var chart = new google.visualization.ColumnChart(document
+					.getElementById('chart_div'));
+		    
+			chart.draw(data, options);
+		}
+		/*]]>*/
+	</script>
+</body>
+
+</html>

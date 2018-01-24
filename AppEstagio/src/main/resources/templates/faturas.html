@@ -46,7 +46,7 @@
 										<td
 											th:text="${#dates.format(linha.fatura.dataVencimento, 'dd/MM/yyyy')}" />
 										<td><a
-											th:href="@{http://localhost:8080/files/{filename}(filename=${'fatura_' + usuarioLogin + linha.fatura.unidadeConsumidora.id + '_' + #dates.monthName(linha.fatura.mesAno) + '_' + #dates.year(linha.fatura.mesAno) + '.pdf'}, path=${'usuarios/' + usuarioId + '/unidades_consumidoras/' + linha.fatura.unidadeConsumidora.id + '/faturas/' + linha.fatura.id + '/'})}">
+											th:href="@{/files/{filename}(filename=${'fatura_' + usuarioLogin + linha.fatura.unidadeConsumidora.id + '_' + #dates.monthName(linha.fatura.mesAno) + '_' + #dates.year(linha.fatura.mesAno) + '.pdf'}, path=${'usuarios/' + usuarioId + '/unidades_consumidoras/' + linha.fatura.unidadeConsumidora.id + '/faturas/' + linha.fatura.id + '/'})}">
 												<i class="fa fa-fw fa-file-pdf-o"></i>
 										</a></td>
 
